@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <head>
-<title>Bildeserie</title>
+<title>Pictures</title>
 </head>
 
 <body>
-  <h1>Bildeserie</h1>
+  <h1>Pictures</h1>
   <div class="container">
 
     <div class="clickable" id="L" onclick="left()">
@@ -38,39 +38,46 @@
 
 <script>
   const former = [
-      "media/square.png",
-      "media/triangle.png",
-      "media/arrow.png",
-      "media/circle.png",
-      "media/cross.png",
-      "media/heart.png",
-      "media/hexagon.png",
-      "media/pentagon.png",
-      "media/rombus.png",
-      "media/star.png"
+      "square",
+      "triangle",
+      "arrow",
+      "circle",
+      "cross",
+      "heart",
+      "hexagon",
+      "pentagon",
+      "rombus",
+      "star"
     ];
   let left_button = document.getElementById("L");
   let right_button = document.getElementById("R");
-  let display_thing = document.querySelector(".display");
+  let display = document.querySelector(".display");
   let current = 0;
+
+  function update_alt(){
+    photo.alt = former[current]
+  }
+
   function show_photo() {
-    photo.src = former[current];
+    //photo.src = former[current];
+    photo.src = `media/${former[current]}.png`;
+    update_alt();
   }
 
   function left() {
-      current--;
       if (current < 0) {
         current = former.length - 1;
       }
+      current--;
       show_photo();
     }
-    function right() {
-      current++;
-      if (current >= former.length) {
-        current = 0;
-      }
-      show_photo();
+  function right() {
+    if (current >= former.length) {
+      current = 0;
     }
+    current++;
+    show_photo();
+  }
 </script>
 
 </body>

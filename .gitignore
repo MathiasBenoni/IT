@@ -72,4 +72,4 @@ Local data / temporary files
 *.temp
 .cache/
 tmp/
-temp/
+temp/.DS_Store

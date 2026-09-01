@@ -1,28 +1,16 @@
-car = {
-  "brand": "Subaru",
-  "model": "Impreza",
-  "gearbox": "Manual",
-  "year": 2006
-}
-
-x = car.items()
-
-car["color"] = "Blue"
-
-print(x)
-
-
 # Create the dictionary
 car = {
-"brand": "Ford",
-"model": "Mustang",
-"year": 2024
+"brand": "Subaru",
+"model": "Impreza",
+"gearbox": "Manual",
+"year": 2015
 }
 # Print the model
-model = car.item
+print(car["model"])
 # Add a color key
-
+car["color"] = "blue"
 # Remove the brand key
-
+car.pop("brand")
 # Print the dictionary
+print(car)
 

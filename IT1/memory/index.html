@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Memory</title>
+</head>
+<body>
+    <h1 id="clock"></h1>
+
+    <div id="board-inputs">
+        <div class="input-group">
+        <label for="board_x">Board x:</label>
+        <input type="number" id="board_x" onchange="update_inputs()">
+    </div>
+    <div class="input-group">
+        <label for="board_y">Board y:</label>
+        <input type="number" id="board_y" onchange="update_inputs()">
+    </div>
+    </div> 
+
+    <div id="board_container">
+    <div id="board"></div>
+        
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

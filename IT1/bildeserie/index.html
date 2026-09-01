@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+<title>Bildeserie</title>
+</head>
+
+<body>
+  <h1>Bildeserie</h1>
+  <div class="container">
+
+    <div class="clickable" id="L" onclick="left()">
+      <img src="media/left_arrow.png"> 
+    </div>
+    <div class="display">
+      <img id="photo" src="media/square.png"> 
+    </div>
+    <div class="clickable" id="R" onclick="right()">
+      <img src="media/right_arrow.png">
+    </div>
+
+  </div>
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: space-between;
+      border-color: blue;
+    }
+    .clickable {
+      cursor: pointer;
+      min-width: 10vh;
+      min-height: 10vh;
+    }
+    .display {
+      min-height: 10vh;
+      min-width: 10vh;
+    }
+  </style>
+
+<script>
+  const former = [
+      "media/square.png",
+      "media/triangle.png",
+      "media/arrow.png",
+      "media/circle.png",
+      "media/cross.png",
+      "media/heart.png",
+      "media/hexagon.png",
+      "media/pentagon.png",
+      "media/rombus.png",
+      "media/star.png"
+    ];
+  let left_button = document.getElementById("L");
+  let right_button = document.getElementById("R");
+  let display_thing = document.querySelector(".display");
+  let current = 0;
+  function show_photo() {
+    photo.src = former[current];
+  }
+
+  function left() {
+      current--;
+      if (current < 0) {
+        current = former.length - 1;
+      }
+      show_photo();
+    }
+    function right() {
+      current++;
+      if (current >= former.length) {
+        current = 0;
+      }
+      show_photo();
+    }
+</script>
+
+</body>

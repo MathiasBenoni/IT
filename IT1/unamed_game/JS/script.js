@@ -24,15 +24,29 @@ document.addEventListener("keydown", function (event) {
       }
     }
 
-    console.log("Forward");
     console.log("Current Y:", y);
     console.log("Closest object in direction:", closest_y);
     y = closest_y + player_size;
-    console.log(y);
+    console.log("Y:", y);
   }
   if (event.key === "a" || event.key === "A") {
-    x -= distance_moved;
-    console.log("Left");
+    let closest_x = null;
+
+    for (let i = 0; i < boxes.length; i++) {
+      const box_x = parseInt(getComputedStyle(boxes[i]).left);
+      const box_y = parseInt(getComputedStyle(boxes[i]).top);
+
+      if (box_x < x) {
+        if (closest_x === null || box_x > closest_x) {
+          closest_x = box_x;
+        }
+      }
+    }
+
+    console.log("Current X:", x);
+    console.log("Closest object in direction:", closest_x);
+    x = closest_x + player_size;
+    console.log("X:", x);
   }
   if (event.key === "s" || event.key === "S") {
     y += distance_moved;

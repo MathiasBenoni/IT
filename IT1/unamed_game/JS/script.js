@@ -17,7 +17,7 @@ document.addEventListener("keydown", function (event) {
       const box_x = parseInt(getComputedStyle(boxes[i]).top);
       const box_y = parseInt(getComputedStyle(boxes[i]).left);
 
-      if (box_y < y) {
+      if (box_y < y && box_x == x) {
         if (closest_y === null || box_y > closest_y) {
           closest_y = box_y;
         }
@@ -36,7 +36,7 @@ document.addEventListener("keydown", function (event) {
       const box_x = parseInt(getComputedStyle(boxes[i]).left);
       const box_y = parseInt(getComputedStyle(boxes[i]).top);
 
-      if (box_x < x) {
+      if (box_x < x && box_y == y) {
         if (closest_x === null || box_x > closest_x) {
           closest_x = box_x;
         }

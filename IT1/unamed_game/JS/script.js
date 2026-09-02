@@ -16,6 +16,7 @@ document.addEventListener("keydown", function (event) {
 
     for (let i = 0; i < boxes.length; i++) {
       const box_x = parseInt(getComputedStyle(boxes[i]).top);
+      const box_width = parseInt(getComputedStyle(boxes[i]).width);
       const box_y = parseInt(getComputedStyle(boxes[i]).left);
 
       if (box_y < y && box_x == x) {
@@ -69,9 +70,25 @@ document.addEventListener("keydown", function (event) {
     y = closest_y - player_size;
     console.log("Y:", y);
   }
+  // Right
   if (event.key === "d" || event.key === "D") {
-    x += distance_moved;
-    console.log("Right");
+    let closest_x = null;
+
+    for (let i = 0; i < boxes.length; i++) {
+      const box_x = parseInt(getComputedStyle(boxes[i]).left);
+      const box_y = parseInt(getComputedStyle(boxes[i]).top);
+
+      if (box_x > x && box_y == y) {
+        if (closest_x === null || box_x < closest_x) {
+          closest_x = box_x;
+        }
+      }
+    }
+
+    console.log("Current X:", x);
+    console.log("Closest object in direction:", closest_x);
+    x = closest_x - player_size;
+    console.log("X:", x);
   }
 
   player.style.left = `${x}px`;

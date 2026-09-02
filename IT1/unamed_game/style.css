@@ -1,7 +1,16 @@
 #player {
   width: 50px;
   height: 50px;
-  background: red;
+  background-color: red;
+  position: absolute;
+  left: 100px;
+  top: 500px;
+}
+
+#one {
+  width: 100px;
+  height: 50px;
+  background-color: black;
   position: absolute;
   left: 100px;
   top: 100px;

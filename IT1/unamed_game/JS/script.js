@@ -15,9 +15,9 @@ document.addEventListener("keydown", function (event) {
     let closest_y = null;
 
     for (let i = 0; i < boxes.length; i++) {
-      const box_x = parseInt(getComputedStyle(boxes[i]).top);
-      const box_width = parseInt(getComputedStyle(boxes[i]).width);
-      const box_y = parseInt(getComputedStyle(boxes[i]).left);
+      let box_x = parseInt(getComputedStyle(boxes[i]).top);
+      let box_width = parseInt(getComputedStyle(boxes[i]).width);
+      let box_y = parseInt(getComputedStyle(boxes[i]).left);
 
       if (box_y < y && box_x == x) {
         if (closest_y === null || box_y > closest_y) {
@@ -36,8 +36,8 @@ document.addEventListener("keydown", function (event) {
     let closest_x = null;
 
     for (let i = 0; i < boxes.length; i++) {
-      const box_x = parseInt(getComputedStyle(boxes[i]).left);
-      const box_y = parseInt(getComputedStyle(boxes[i]).top);
+      let box_x = parseInt(getComputedStyle(boxes[i]).left);
+      let box_y = parseInt(getComputedStyle(boxes[i]).top);
 
       if (box_x < x && box_y == y) {
         if (closest_x === null || box_x > closest_x) {
@@ -56,8 +56,8 @@ document.addEventListener("keydown", function (event) {
     let closest_y = null;
 
     for (let i = 0; i < boxes.length; i++) {
-      const box_x = parseInt(getComputedStyle(boxes[i]).left);
-      const box_y = parseInt(getComputedStyle(boxes[i]).top);
+      let box_x = parseInt(getComputedStyle(boxes[i]).left);
+      let box_y = parseInt(getComputedStyle(boxes[i]).top);
 
       if (box_y > y && box_x == x) {
         if (closest_y === null || box_y < closest_y) {
@@ -75,8 +75,8 @@ document.addEventListener("keydown", function (event) {
     let closest_x = null;
 
     for (let i = 0; i < boxes.length; i++) {
-      const box_x = parseInt(getComputedStyle(boxes[i]).left);
-      const box_y = parseInt(getComputedStyle(boxes[i]).top);
+      let box_x = parseInt(getComputedStyle(boxes[i]).left);
+      let box_y = parseInt(getComputedStyle(boxes[i]).top);
 
       if (box_x > x && box_y == y) {
         if (closest_x === null || box_x < closest_x) {

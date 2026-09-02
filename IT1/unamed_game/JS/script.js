@@ -9,6 +9,7 @@ const distance_moved = 10;
 let x = 100;
 let y = 500;
 // Movenemt
+// Forward
 document.addEventListener("keydown", function (event) {
   if (event.key === "w" || event.key === "W") {
     let closest_y = null;
@@ -29,6 +30,7 @@ document.addEventListener("keydown", function (event) {
     y = closest_y + player_size;
     console.log("Y:", y);
   }
+  // Left
   if (event.key === "a" || event.key === "A") {
     let closest_x = null;
 
@@ -48,9 +50,24 @@ document.addEventListener("keydown", function (event) {
     x = closest_x + player_size;
     console.log("X:", x);
   }
+  // Back
   if (event.key === "s" || event.key === "S") {
-    y += distance_moved;
-    console.log("Back");
+    let closest_y = null;
+
+    for (let i = 0; i < boxes.length; i++) {
+      const box_x = parseInt(getComputedStyle(boxes[i]).left);
+      const box_y = parseInt(getComputedStyle(boxes[i]).top);
+
+      if (box_y > y && box_x == x) {
+        if (closest_y === null || box_y < closest_y) {
+          closest_y = box_y;
+        }
+      }
+    }
+    console.log("Current Y:", y);
+    console.log("Closest object in direction:", closest_y);
+    y = closest_y - player_size;
+    console.log("Y:", y);
   }
   if (event.key === "d" || event.key === "D") {
     x += distance_moved;

@@ -26,16 +26,20 @@ function show_photo() {
 }
 
 function left() {
+  current--;
+  // console.log(current);
   if (current <= 0) {
     current = former.length - 1;
   }
-  current--;
+
   show_photo();
 }
 function right() {
+  // console.log(current);
+  current++;
   if (current >= former.length) {
     current = 0;
   }
-  current++;
+
   show_photo();
 }

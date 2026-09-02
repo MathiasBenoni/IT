@@ -8,8 +8,12 @@
   cursor: pointer;
   min-width: 10vh;
   min-height: 10vh;
+  margin: 10px;
+  border: 2px solid black;
 }
 .display {
   min-height: 10vh;
   min-width: 10vh;
+  margin: 10px;
+  border: 2px solid blue;
 }

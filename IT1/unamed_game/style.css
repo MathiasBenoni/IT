@@ -1,12 +1,13 @@
 :root {
   --box-width: 50px;
   --box-offset: 50px;
+  --player-size: 50px;
 }
 
 
 #player {
-  width: 50px;
-  height: 50px;
+  width: var(--player-size);
+  height: var(--player-size);
   background-color: red;
   position: absolute;
   left: calc(var(--box-offset) * 2);

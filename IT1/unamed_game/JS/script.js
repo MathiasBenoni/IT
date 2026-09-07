@@ -1,7 +1,5 @@
 const boxes = document.getElementsByClassName("object");
 
-let pos = getComputedStyle(boxes[0]).left;
-
 const player = document.getElementById("player");
 const player_size = parseInt(getComputedStyle(player).width);
 

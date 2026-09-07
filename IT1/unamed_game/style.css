@@ -9,8 +9,8 @@
   height: 50px;
   background-color: red;
   position: absolute;
-  left: 100px;
-  top: 500px;
+  left: calc(var(--box-offset) * 2);
+  top: calc(var(--box-offset) * 10);
 }
 
 .object {

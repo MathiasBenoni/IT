@@ -1,3 +1,9 @@
+:root {
+  --box-width: 50px;
+  --box-offset: 50px;
+}
+
+
 #player {
   width: 50px;
   height: 50px;
@@ -13,32 +19,32 @@
 }
 
 #one {
-  width: 50px;
+  width: var(--box-width);
   height: 50px;
   left: 100px;
-  top: 100px;
+  top: calc(var(--box-offset) * 2);
 }
 #two {
-  width: 50px;
-  height: 50px;
+  width: var(--box-width);
+  height: 500px;
   left: 0px;
   top: 150px;
 
 }
 #three {
-  width: 50px;
+  width: var(--box-width);
   height: 50px;
   left: 100px;
   top: 700px;
 }
 #four {
-  width: 50px;
+  width: var(--box-width);
   height: 50px;
   left: 150px;
   top: 150px;
 }
 #five {
-  width: 50px;
+  width: var(--box-width);
   height: 50px;
   left: 250px;
   top: 650px;

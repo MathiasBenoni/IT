@@ -4,7 +4,6 @@
   --player-size: 50px;
 }
 
-
 #player {
   width: var(--player-size);
   height: var(--player-size);

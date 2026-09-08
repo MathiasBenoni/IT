@@ -18,7 +18,10 @@ player_coordinates = {
 }
 player_pos = pygame.Vector2(player_coordinates["x"], player_coordinates["y"])
 
+
+
 touched = False
+moving = False
 
 while running:
   for event in pygame.event.get():
@@ -41,13 +44,21 @@ while running:
   movement = pygame.Vector2(0, 0)
 
   if keys[pygame.K_w]:
-      movement.y -= MOVE_SPEED * delta_time
+    movement.y -= MOVE_SPEED * delta_time
+    print(movement)
+    moving = True
   if keys[pygame.K_s]:
       movement.y += MOVE_SPEED * delta_time
+      print(movement)
+      moving = True
   if keys[pygame.K_a]:
       movement.x -= MOVE_SPEED * delta_time
+      print(movement)
+      moving = True
   if keys[pygame.K_d]:
       movement.x += MOVE_SPEED * delta_time
+      print(movement)
+      moving = True
 
   # Move
   player_pos += movement

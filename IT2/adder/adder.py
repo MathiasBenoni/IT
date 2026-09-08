@@ -1,9 +1,4 @@
-from os import replace
-
-
 while True:
-
-  
 
   try:
     num_1_as_string = input("Skriv inn et tall: ")
@@ -13,7 +8,7 @@ while True:
     num_2_as_string = input("Skriv inn et annet tall: ")
     num_2_processed = num_2_as_string.replace(",", ".")
     num_2 = float(num_2_processed)
-    
+
     total = num_1 + num_2
 
   except:

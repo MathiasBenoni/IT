@@ -4,78 +4,81 @@ WIDTH = 1280
 HEIGHT = 720
 MOVE_SPEED = 500
 
-
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 running = True
-delta_time = 0
 
+player_pos = pygame.Vector2(
+    WIDTH / 2 - 40 / 2,
+    HEIGHT / 2 - 40 / 2
+)
 
-player_coordinates = {
-   "x": WIDTH / 2 - 40 / 2,
-   "y": HEIGHT / 2 - 40 / 2
-}
-player_pos = pygame.Vector2(player_coordinates["x"], player_coordinates["y"])
-
-
-
-touched = False
-moving = False
+movement = pygame.Vector2(0, 0)
+next_movement = pygame.Vector2(0, 0)
 
 while running:
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      running = False
 
-  screen.fill("white")
+    delta_time = clock.tick(60) / 1000
 
+    for event in pygame.event.get():
 
-  wall = pygame.draw.rect(screen, "black", (0, 0, WIDTH, 50))
+        if event.type == pygame.QUIT:
+            running = False
 
+        if event.type == pygame.KEYDOWN:
 
-  # Player
-  player = pygame.draw.rect(screen, "red", (*player_pos, 40, 40))
+            if event.key == pygame.K_w:
+                next_movement = pygame.Vector2(0, -1)
 
-  
+            elif event.key == pygame.K_s:
+                next_movement = pygame.Vector2(0, 1)
 
-  keys = pygame.key.get_pressed()
+            elif event.key == pygame.K_a:
+                next_movement = pygame.Vector2(-1, 0)
 
-  movement = pygame.Vector2(0, 0)
+            elif event.key == pygame.K_d:
+                next_movement = pygame.Vector2(1, 0)
 
-  if keys[pygame.K_w]:
-    movement.y -= MOVE_SPEED * delta_time
-    print(movement)
-    moving = True
-  if keys[pygame.K_s]:
-      movement.y += MOVE_SPEED * delta_time
-      print(movement)
-      moving = True
-  if keys[pygame.K_a]:
-      movement.x -= MOVE_SPEED * delta_time
-      print(movement)
-      moving = True
-  if keys[pygame.K_d]:
-      movement.x += MOVE_SPEED * delta_time
-      print(movement)
-      moving = True
+    
+    if movement.length_squared() == 0:
+        movement = next_movement
+        next_movement = pygame.Vector2(0, 0)
 
-  # Move
-  player_pos += movement
+    
+    velocity = movement * MOVE_SPEED * delta_time
 
-  # Update the rect's position
-  player.topleft = player_pos
+    # Move
+    player_pos += velocity
 
-  # If we hit the wall, undo the movement
-  if player.colliderect(wall):
-      player_pos -= movement
-      player.topleft = player_pos
-  
+    
+    player = pygame.Rect(
+        *player_pos,
+        40,
+        40
+    )
 
+    
+    wall = pygame.Rect(0, 0, WIDTH, 50)
 
+    
+    if player.colliderect(wall):
 
-  pygame.display.flip()
+        
+        player_pos -= velocity
 
-  delta_time = clock.tick(60) / 1000
+        
+        movement = pygame.Vector2(0, 0)
+
+        
+        movement = next_movement
+        next_movement = pygame.Vector2(0, 0)
+
+    
+    screen.fill("white")
+    pygame.draw.rect(screen, "black", wall)
+    pygame.draw.rect(screen, "red", (*player_pos, 40, 40))
+
+    pygame.display.flip()
 
 pygame.quit()

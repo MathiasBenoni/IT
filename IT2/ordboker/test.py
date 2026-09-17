@@ -1,3 +1,5 @@
+from lib.func_lib import add
+
 # Create the dictionary
 car = {
 "brand": "Subaru",
@@ -14,3 +16,4 @@ car.pop("brand")
 # Print the dictionary
 print(car)
 
+print(add(1, 3))

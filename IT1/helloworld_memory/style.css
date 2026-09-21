@@ -56,3 +56,8 @@ h1 {
   width: 4rem;
   padding: 0.25rem 0.5rem;
 }
+#board {
+  display: grid;
+  grid-template-columns: repeat(5, var(--size));
+  gap: 5px;
+}

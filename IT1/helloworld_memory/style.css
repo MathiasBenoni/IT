@@ -1,0 +1,58 @@
+:root {
+  
+  --size: 100px;
+}
+
+h1 {
+  color: black;
+  font-style: normal;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#board {
+  display: grid;
+  gap: 5px;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  width: var(--size);
+  background-color:burlywood;
+
+}
+#board_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#clock {
+  display: flex;
+  justify-self: center;
+}
+
+
+
+#board-inputs {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 4rem;
+  padding: 0.25rem 0.5rem;
+}

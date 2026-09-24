@@ -10,6 +10,4 @@ first_enemy = Enemy("Bob", 10, 0, True)
 
 menu()
 choice = input("What do you do (1 - 4)? ")
-
-if choice == "1":
-  stats(first_enemy)
+handle_menu(choice, first_enemy)

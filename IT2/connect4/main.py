@@ -26,6 +26,18 @@ def print_board():
   print("| 1 | 2 | 3 | 4 | 5 | 6 | 7 |")
   print("±---------------------------±")
 
+def ask_move():
+  try:
+    move = int(input(f"Player {player_piece[player]} (1 - 7): "))
+  except:
+    print("Try again")
+  else:
+    if move > 0 and move < 8:
+      print("OK")
+      return move
+
+  if move == 0:
+    return False
 
 create_board()
 print_board()
@@ -51,17 +63,14 @@ swap_player = {0: 1, 1:0}
 player = 0
 
 while True:
-  try:
-    move = int(input(f"Player {player_piece[player]} (1 - 7): "))
-  except:
-    print("Try again")
-  else:
-    if move > 0 and move < 8:
-      print("OK")
-      print(move)
 
-  if move == 0:
+  #  Asking the player for a number
+  move = ask_move()
+
+  if move == False:
     break
+  # Done asking the player
 
+  
 
   

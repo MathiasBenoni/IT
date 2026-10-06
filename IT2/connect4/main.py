@@ -49,8 +49,8 @@ def place_piece():
       row[accual_move] = player_piece[player]
       break
 
-def swap_player(player):
-  new_player = swap[player]
+def swap_player(current_player):
+  new_player = swap[current_player]
   return new_player
 
 create_board()

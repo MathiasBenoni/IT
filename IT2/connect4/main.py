@@ -5,26 +5,25 @@ board = []
 
 def create_board():
   for i in range(HEIGHT):
-    
     row = []
-    #print(i)
+
     for n in range(WIDTH):
-      cell = "| " + str(n)
-      #board.append("|")
-      row.append(cell)
-      #board.append("|")
-      #print(n)
-    print(row)
+      row.append(" ")
+
     board.append(row)
 
 def print_board():
-  print("±---------------------------±")
+  print(" --------------------------- ")
+
   for row in board:
-    print(*row, "|")
-    
+    print("|", end="")
+    for n in row:
+      print(" " + str(n) + " |", end="")
+    print()
+
   print("|---------------------------|")
   print("| 1 | 2 | 3 | 4 | 5 | 6 | 7 |")
-  print("±---------------------------±")
+  print(" --------------------------- ")
 
 def ask_player():
   while True:
@@ -41,6 +40,14 @@ def ask_player():
     except ValueError:
       print("Try again")
 
+def place_piece():
+  accual_move = move - 1
+  print(accual_move)
+
+  for row in reversed(board):
+    if row[accual_move] == " ":
+      row[accual_move] = player_piece[player]
+      break
 
 create_board()
 print_board()
@@ -48,7 +55,7 @@ print_board()
 """
 Gameloop
 ---------------------------------------------------------
-1. Ask the player for a number (1 - 7)
+1. Ask the player for a number (1 - 7) V
 2. Get the piece belonig to the player to the correct row
 3. Get the piece to the correct collumn
 4. Check for 4 in a row
@@ -74,10 +81,13 @@ while True:
   if move == 0:
     break
   # Done asking the player
-  print(move)
+
+  place_piece()    
+
+
+
+  print_board()
+
   break
-  
-
-
 
   

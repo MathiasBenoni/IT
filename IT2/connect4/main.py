@@ -49,26 +49,30 @@ def place_piece():
       row[accual_move] = player_piece[player]
       break
 
+def swap_player(player):
+  new_player = swap[player]
+  return new_player
+
 create_board()
 print_board()
 
 """
 Gameloop
----------------------------------------------------------
+----------------------------------------------------------
 1. Ask the player for a number (1 - 7) V
-2. Get the piece belonig to the player to the correct row
-3. Get the piece to the correct collumn
+2. Get the piece belonig to the player to the correct row V
+3. Get the piece to the correct collumn V
 4. Check for 4 in a row
-5. Swap player
+5. Swap player V
 6. Loop
----------------------------------------------------------
+----------------------------------------------------------
 """
 
 player_piece = {
   0: "X",
   1: "O"
 }
-swap_player = {0: 1, 1:0}
+swap = {0: 1, 1:0}
 player = 0
 move = None
 legal_moves = [1, 2, 3, 4, 5, 6, 7]
@@ -84,10 +88,12 @@ while True:
 
   place_piece()    
 
-
-
   print_board()
+  print(player)
 
+  player = swap_player(player)
+
+  print(player)
   break
 
   

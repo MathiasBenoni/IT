@@ -46,10 +46,19 @@ def place_piece():
   for row in reversed(board):
     if row[accual_move] == " ":
       row[accual_move] = player_piece[player]
-      break
-    elif row == board[0]:
+      return board.index(row)
+    
+    elif row is board[0]:
       print("Collumn full")
-      return False
+      return None
+
+def check_vertical(x, y, player):
+  accual_x = x - 1
+  print(accual_x, y)
+
+  for x in range(4):
+    if board[x][y]:
+      pass
 
 def swap_player(current_player):
   new_player = swap[current_player]
@@ -66,7 +75,7 @@ Gameloop
 3. Get the piece to the correct collumn V
 4. Check for 4 in a row
 5. Swap player V
-6. Loop
+6. Loop V
 ----------------------------------------------------------
 """
 
@@ -87,10 +96,13 @@ while True:
   if move == 0:
     break
   # Done asking the player
-
-  if place_piece() == False:
+  placed_row = place_piece() 
+  if placed_row == None:
     continue
   else:
+
+
+    check_vertical(move, placed_row, player)
 
     print_board()
 

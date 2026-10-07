@@ -1,3 +1,5 @@
+swap = {0: 1, 1:0}
+
 def create_board(width, height):
   board = []
   for x in range(width):
@@ -46,3 +48,7 @@ def place_piece(move, board, player_piece, player):
 
   print("Column full")
   return None
+
+def swap_player(current_player):
+  new_player = swap[current_player]
+  return new_player

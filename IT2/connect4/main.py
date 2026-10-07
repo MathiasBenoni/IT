@@ -106,7 +106,7 @@ Gameloop
 3. Get the piece to the correct collumn V
 4. Check for 4 in a row:
   Vertical V
-  Horizontal
+  Horizontal V
   Diagonal right
   Diagonal left
 5. Swap player V

@@ -32,7 +32,7 @@ def ask_player():
         print("Bye!")
         return move
       if move in legal_moves:
-        print("OK")
+        #print("OK")
         return move
       else:
         print("Try again")
@@ -41,12 +41,15 @@ def ask_player():
 
 def place_piece():
   accual_move = move - 1
-  print(accual_move)
+  #print(accual_move)
 
   for row in reversed(board):
     if row[accual_move] == " ":
       row[accual_move] = player_piece[player]
       break
+    elif row == board[0]:
+      print("Collumn full")
+      return False
 
 def swap_player(current_player):
   new_player = swap[current_player]
@@ -85,15 +88,10 @@ while True:
     break
   # Done asking the player
 
-  place_piece()    
+  if place_piece() == False:
+    continue
+  else:
 
-  print_board()
-  #print(player)
-  print(board)
+    print_board()
 
-  player = swap_player(player)
-
-  #print(player)
-  break
-
-  
+    player = swap_player(player)

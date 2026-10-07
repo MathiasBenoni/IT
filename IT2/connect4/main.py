@@ -13,7 +13,7 @@ def create_board():
     board.append(row)
 
 def print_board():
-  print(" --------------------------- ")
+  print()
 
   for row in board:
     print("|", end="")

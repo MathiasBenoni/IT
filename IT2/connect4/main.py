@@ -18,12 +18,11 @@ def print_board():
   for row in board:
     print("|", end="")
     for n in row:
-      print(" " + str(n) + " |", end="")
+      print(str(n) + "|", end="")
     print()
 
-  print("|---------------------------|")
-  print("| 1 | 2 | 3 | 4 | 5 | 6 | 7 |")
-  print(" --------------------------- ")
+  print("---------------")
+  print("|1|2|3|4|5|6|7|")
 
 def ask_player():
   while True:
@@ -89,11 +88,12 @@ while True:
   place_piece()    
 
   print_board()
-  print(player)
+  #print(player)
+  print(board)
 
   player = swap_player(player)
 
-  print(player)
+  #print(player)
   break
 
   

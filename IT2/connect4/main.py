@@ -1,3 +1,6 @@
+from regex import P
+
+
 WIDTH = 7
 HEIGHT = 6
 
@@ -25,7 +28,6 @@ def print_board():
   print("|1|2|3|4|5|6|7|")
 
 
-
 def ask_player():
   while True:
     try:
@@ -48,18 +50,26 @@ def place_piece():
   for y in range(HEIGHT - 1, -1, -1):
     if column[y] == " ":
       column[y] = player_piece[player]
-      print(f"Placing a piece on X: {x}, Y: {y}")
+      # print(f"Placing a piece on X: {x}, Y: {y}")
       return y
 
   print("Column full")
   return None
 
 def check_vertical(x, y, player):
-  print(x, y, player)
-  print(board)
 
-  if board[x][y] != player_piece[player]:
-    print(f"Did not find: {x}, {y}")
+  counter = 0
+
+  for n in range(4):
+    try:
+      if board[x][y + n] == str(player_piece[player]):
+        counter += 1
+        print(counter)
+    except:
+      return False
+
+    if counter == 4:
+      print("YOU WON!")
 
   if board[x][y] == str(player_piece[player]):
     print(f"Board coordinates: {x}, {y}")
@@ -78,7 +88,7 @@ Gameloop
 2. Get the piece belonig to the player to the correct row V
 3. Get the piece to the correct collumn V
 4. Check for 4 in a row:
-  Vertical
+  Vertical V
   Horizontal
   Diagonal right
   Diagonal left

@@ -1,60 +1,10 @@
-from regex import P
+from turtle import width
 
+import my_functions
 
 WIDTH = 7
 HEIGHT = 6
 
-board = []
-
-def create_board():
-  for x in range(WIDTH):
-    column = []
-
-    for y in range(HEIGHT):
-      column.append(" ")
-
-    board.append(column)
-
-def print_board():
-  print()
-
-  for y in range(HEIGHT):
-    print("|", end="")
-    for x in range(WIDTH):
-      print(board[x][y] + "|", end="")
-    print()
-
-  print("---------------")
-  print("|1|2|3|4|5|6|7|")
-
-
-def ask_player():
-  while True:
-    try:
-      move = int(input(f"Player {player_piece[player]} (1 - 7): "))
-      if move == 0:
-        print("Bye!")
-        return move
-      if move in legal_moves:
-        #print("OK")
-        return move
-      else:
-        print("Try again")
-    except ValueError:
-      print("Try again")
-
-def place_piece():
-  x = move - 1
-  column = board[x]
-
-  for y in range(HEIGHT - 1, -1, -1):
-    if column[y] == " ":
-      column[y] = player_piece[player]
-      # print(f"Placing a piece on X: {x}, Y: {y}")
-      return y
-
-  print("Column full")
-  return None
 
 def check_vertical(x, y, player):
 
@@ -95,8 +45,8 @@ def swap_player(current_player):
   new_player = swap[current_player]
   return new_player
 
-create_board()
-print_board()
+board = my_functions.create_board(WIDTH, HEIGHT)
+my_functions.print_board(WIDTH, HEIGHT, board)
 
 """
 Gameloop
@@ -127,20 +77,20 @@ legal_moves = [1, 2, 3, 4, 5, 6, 7]
 while True:
 
   #  Asking the player for a number
-  move = ask_player()
+  move = my_functions.ask_player(player, player_piece, legal_moves)
   if move == 0:
     break
   # Done asking the player
-  placed_row = place_piece() 
+  placed_row = my_functions.place_piece(move, board, player_piece, player) 
   if placed_row == None:
     continue
   else:
 
 
     if check_vertical(move - 1, placed_row, player) or check_horizontal(move - 1, placed_row, player):
-      print(f"{player_piece[player]} WON!")
+      print(f"Player {player_piece[player]} WON!")
       break
 
-    print_board()
+    my_functions.print_board(WIDTH, HEIGHT, board)
 
     player = swap_player(player)

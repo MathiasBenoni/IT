@@ -1,0 +1,48 @@
+def create_board(width, height):
+  board = []
+  for x in range(width):
+    column = []
+
+    for y in range(height):
+      column.append(" ")
+
+    board.append(column)
+  return board
+
+def print_board(width, height, board):
+  print()
+
+  for y in range(height):
+    print("|", end="")
+    for x in range(width):
+      print(board[x][y] + "|", end="")
+    print()
+
+  print("---------------")
+  print("|1|2|3|4|5|6|7|")
+
+def ask_player(player, player_piece, legal_moves):
+  while True:
+    try:
+      move = int(input(f"Player {player_piece[player]} (1 - 7): "))
+      if move == 0:
+        print("Bye!")
+        return move
+      if move in legal_moves:
+        return move
+      else:
+        print("Try again")
+    except ValueError:
+      print("Try again")
+
+def place_piece(move, board, player_piece, player):
+  x = move - 1
+  column = board[x]
+
+  for y in range(len(column) - 1, -1, -1):
+    if column[y] == " ":
+      column[y] = player_piece[player]
+      return y
+
+  print("Column full")
+  return None

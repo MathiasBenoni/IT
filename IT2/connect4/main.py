@@ -4,25 +4,27 @@ HEIGHT = 6
 board = []
 
 def create_board():
-  for i in range(HEIGHT):
-    row = []
+  for x in range(WIDTH):
+    column = []
 
-    for n in range(WIDTH):
-      row.append(" ")
+    for y in range(HEIGHT):
+      column.append(" ")
 
-    board.append(row)
+    board.append(column)
 
 def print_board():
   print()
 
-  for row in board:
+  for y in range(HEIGHT):
     print("|", end="")
-    for n in row:
-      print(str(n) + "|", end="")
+    for x in range(WIDTH):
+      print(board[x][y] + "|", end="")
     print()
 
   print("---------------")
   print("|1|2|3|4|5|6|7|")
+
+
 
 def ask_player():
   while True:
@@ -40,25 +42,27 @@ def ask_player():
       print("Try again")
 
 def place_piece():
-  accual_move = move - 1
-  #print(accual_move)
+  x = move - 1
+  column = board[x]
 
-  for row in reversed(board):
-    if row[accual_move] == " ":
-      row[accual_move] = player_piece[player]
-      return board.index(row)
-    
-    elif row is board[0]:
-      print("Collumn full")
-      return None
+  for y in range(HEIGHT - 1, -1, -1):
+    if column[y] == " ":
+      column[y] = player_piece[player]
+      print(f"Placing a piece on X: {x}, Y: {y}")
+      return y
+
+  print("Column full")
+  return None
 
 def check_vertical(x, y, player):
-  accual_x = x - 1
-  print(accual_x, y)
+  print(x, y, player)
+  print(board)
 
-  for x in range(4):
-    if board[x][y]:
-      pass
+  if board[x][y] != player_piece[player]:
+    print(f"Did not find: {x}, {y}")
+
+  if board[x][y] == str(player_piece[player]):
+    print(f"Board coordinates: {x}, {y}")
 
 def swap_player(current_player):
   new_player = swap[current_player]
@@ -73,7 +77,11 @@ Gameloop
 1. Ask the player for a number (1 - 7) V
 2. Get the piece belonig to the player to the correct row V
 3. Get the piece to the correct collumn V
-4. Check for 4 in a row
+4. Check for 4 in a row:
+  Vertical
+  Horizontal
+  Diagonal right
+  Diagonal left
 5. Swap player V
 6. Loop V
 ----------------------------------------------------------
@@ -102,7 +110,7 @@ while True:
   else:
 
 
-    check_vertical(move, placed_row, player)
+    check_vertical(move - 1, placed_row, player)
 
     print_board()
 

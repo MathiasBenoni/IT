@@ -1,3 +1,6 @@
+from pandas import col
+
+
 swap = {0: 1, 1:0}
 
 def create_board(width, height):
@@ -22,6 +25,7 @@ def print_board(width, height, board):
 
   print("---------------")
   print("|1|2|3|4|5|6|7|")
+  print()
 
 def ask_player(player, player_piece, legal_moves):
   while True:
@@ -37,13 +41,13 @@ def ask_player(player, player_piece, legal_moves):
     except ValueError:
       print("Try again")
 
-def place_piece(move, board, player_piece, player):
+def place_piece(move, board, player_piece, player, colors, backgrounds):
   x = move - 1
   column = board[x]
 
   for y in range(len(column) - 1, -1, -1):
     if column[y] == " ":
-      column[y] = player_piece[player]
+      column[y] = colors[player] + backgrounds[player] + str(player_piece[player]) + colors["White"] + backgrounds["No"]
       return y
 
   print("Column full")

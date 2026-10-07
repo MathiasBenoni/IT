@@ -59,20 +59,37 @@ def place_piece():
 def check_vertical(x, y, player):
 
   counter = 0
-
   for n in range(4):
     try:
       if board[x][y + n] == str(player_piece[player]):
+        counter += 1
+        #print(counter)
+    except:
+      return False
+
+    if counter == 4:
+      return True
+
+def check_horizontal(x, y, player):
+  counter = 0
+  for n in range(-4, 4):
+    try:
+      if board[x + n][y] == str(player_piece[player]):
         counter += 1
         print(counter)
     except:
       return False
 
     if counter == 4:
-      print("YOU WON!")
+      return True
+  
 
-  if board[x][y] == str(player_piece[player]):
-    print(f"Board coordinates: {x}, {y}")
+def check_diagonal_right():
+  pass
+
+def check_diagonal_left():
+  pass
+
 
 def swap_player(current_player):
   new_player = swap[current_player]
@@ -120,7 +137,9 @@ while True:
   else:
 
 
-    check_vertical(move - 1, placed_row, player)
+    if check_vertical(move - 1, placed_row, player) or check_horizontal(move - 1, placed_row, player):
+      print(f"{player_piece[player]} WON!")
+      break
 
     print_board()
 

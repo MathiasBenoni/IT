@@ -34,11 +34,11 @@ Gameloop
 1. Ask the player for a number (1 - 7) V
 2. Get the piece belonig to the player to the correct row V
 3. Get the piece to the correct collumn V
-4. Check for 4 in a row:
+4. Check for 4 in a row: V
   Vertical V
   Horizontal V
-  Diagonal right
-  Diagonal left
+  Diagonal right V
+  Diagonal left V
 5. Swap player V
 6. Loop V
 ----------------------------------------------------------
@@ -61,6 +61,7 @@ while True:
     my_functions.print_board(WIDTH, HEIGHT, board)
 
     plain_board = my_functions.strip_colors(board)
+
     if check_win.check_win(move - 1, placed_row, player_piece, player, plain_board):
       print(f"Player {player_piece[player]} WON!")
       break

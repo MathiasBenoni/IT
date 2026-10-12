@@ -1,5 +1,8 @@
+from matplotlib import contour
+
 import my_functions
 import check_win
+import bot_0
 
 WIDTH = 7
 HEIGHT = 6
@@ -44,7 +47,12 @@ Gameloop
 ----------------------------------------------------------
 """
 
+nisse = input("Want to play against Da Bot? (Y / N): ")
 
+if nisse.lower() == "n":
+  bot = False
+else:
+  bot = True
 
 while True:
 
@@ -67,3 +75,24 @@ while True:
       break
 
     player = my_functions.swap_player(player)
+
+    if bot:
+
+      move = bot_0.make_move(WIDTH)
+
+      print(f"Da Bot chose column {move}")
+
+      placed_row = my_functions.place_piece(move, board, player_piece, player, colors, backgrounds)
+
+      if placed_row == None:
+          continue
+      else:
+
+        my_functions.print_board(WIDTH, HEIGHT, board)
+        plain_board = my_functions.strip_colors(board)
+
+        if check_win.check_win(move - 1, placed_row, player_piece, player, plain_board):
+            print(f"Player {player_piece[player]} WON!")
+            break
+      
+        player = my_functions.swap_player(player)

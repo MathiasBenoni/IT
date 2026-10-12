@@ -70,12 +70,18 @@ while True:
   if player is None:
     break
 
-  match model:
-    case 0:
+  if bot and player == 1:
+    while True:
       move = get_bot_move(model, WIDTH)
+      if move is None:
+        break
 
-      if move is not None:
-            print(f"Da Bot chose column {move}")
-            player = my_functions.play_turn(move, player, player_piece, board, WIDTH, HEIGHT, colors, backgrounds)
-            if player is None:
-              break
+      bot_player = player
+      print(f"Da Bot chose column {move}")
+      player = my_functions.play_turn(move, bot_player, player_piece, board, WIDTH, HEIGHT, colors, backgrounds)
+
+      if player != bot_player:
+        break  # move succeeded (or bot won) - stop retrying
+
+    if player is None:
+      break

@@ -54,12 +54,12 @@ else:
   bot = True
   model = int(input("How strong should Da Bot be? (0 - 1): "))
 
-def get_bot_move(model, width):
+def get_bot_move(model, borad, player, player_piece):
   match model:
     case 0:
-      return bot_0.make_move(width)
+      return bot_0.make_move(WIDTH)
     case 1:
-      return None
+      return bot_1.make_move(board, player, player_piece)
 
 while True:
   move = my_functions.ask_player(player, player_piece, legal_moves)
@@ -72,7 +72,8 @@ while True:
 
   if bot and player == 1:
     while True:
-      move = get_bot_move(model, WIDTH)
+      plain_board = my_functions.strip_colors(board)
+      move = get_bot_move(model, plain_board, player, player_piece)
       if move is None:
         break
 

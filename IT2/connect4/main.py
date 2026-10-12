@@ -1,8 +1,7 @@
-from matplotlib import contour
-
 import my_functions
 import check_win
 import bot_0
+import bot_1
 
 WIDTH = 7
 HEIGHT = 6
@@ -53,46 +52,30 @@ if nisse.lower() == "n":
   bot = False
 else:
   bot = True
+  model = int(input("How strong should Da Bot be? (0 - 1): "))
+
+def get_bot_move(model, width):
+  match model:
+    case 0:
+      return bot_0.make_move(width)
+    case 1:
+      return None
 
 while True:
-
-  #  Asking the player for a number
   move = my_functions.ask_player(player, player_piece, legal_moves)
   if move == 0:
     break
-  # Done asking the player
-  placed_row = my_functions.place_piece(move, board, player_piece, player, colors, backgrounds) 
-  if placed_row == None:
-    continue
-  else:
 
-    my_functions.print_board(WIDTH, HEIGHT, board)
+  player = my_functions.play_turn(move, player, player_piece, board, WIDTH, HEIGHT, colors, backgrounds)
+  if player is None:
+    break
 
-    plain_board = my_functions.strip_colors(board)
+  match model:
+    case 0:
+      move = get_bot_move(model, WIDTH)
 
-    if check_win.check_win(move - 1, placed_row, player_piece, player, plain_board):
-      print(f"Player {player_piece[player]} WON!")
-      break
-
-    player = my_functions.swap_player(player)
-
-    if bot:
-
-      move = bot_0.make_move(WIDTH)
-
-      print(f"Da Bot chose column {move}")
-
-      placed_row = my_functions.place_piece(move, board, player_piece, player, colors, backgrounds)
-
-      if placed_row == None:
-          continue
-      else:
-
-        my_functions.print_board(WIDTH, HEIGHT, board)
-        plain_board = my_functions.strip_colors(board)
-
-        if check_win.check_win(move - 1, placed_row, player_piece, player, plain_board):
-            print(f"Player {player_piece[player]} WON!")
-            break
-      
-        player = my_functions.swap_player(player)
+      if move is not None:
+            print(f"Da Bot chose column {move}")
+            player = my_functions.play_turn(move, player, player_piece, board, WIDTH, HEIGHT, colors, backgrounds)
+            if player is None:
+              break

@@ -1,4 +1,5 @@
 import re
+import check_win
 
 swap = {0: 1, 1:0}
 
@@ -62,3 +63,17 @@ def strip_colors(board):
     plain_column = [re.sub(r"\x1b\[[0-9;]*m", "", cell) for cell in column]
     plain_board.append(plain_column)
   return plain_board
+
+def play_turn(move, player, player_piece, board, width, height, colors, backgrounds):
+  placed_row = place_piece(move, board, player_piece, player, colors, backgrounds)
+  if placed_row is None:
+    return player  # column full, same player retries
+
+  print_board(width, height, board)
+  plain_board = strip_colors(board)
+
+  if check_win.check_win(move - 1, placed_row, player_piece, player, plain_board):
+    print(f"Player {player_piece[player]} WON!")
+    return None
+
+  return swap_player(player)

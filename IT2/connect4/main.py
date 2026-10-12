@@ -60,7 +60,8 @@ while True:
 
     my_functions.print_board(WIDTH, HEIGHT, board)
 
-    if check_win.check_win(move - 1, placed_row, player_piece, player, board):
+    plain_board = my_functions.strip_colors(board)
+    if check_win.check_win(move - 1, placed_row, player_piece, player, plain_board):
       print(f"Player {player_piece[player]} WON!")
       break
 

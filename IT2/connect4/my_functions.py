@@ -1,5 +1,4 @@
-from pandas import col
-
+import re
 
 swap = {0: 1, 1:0}
 
@@ -56,3 +55,10 @@ def place_piece(move, board, player_piece, player, colors, backgrounds):
 def swap_player(current_player):
   new_player = swap[current_player]
   return new_player
+
+def strip_colors(board):
+  plain_board = []
+  for column in board:
+    plain_column = [re.sub(r"\x1b\[[0-9;]*m", "", cell) for cell in column]
+    plain_board.append(plain_column)
+  return plain_board

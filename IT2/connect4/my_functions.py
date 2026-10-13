@@ -3,6 +3,7 @@ from turtle import width
 import check_win
 import bot_0
 import bot_1
+import bot_2
 
 swap = {0: 1, 1:0}
 
@@ -87,3 +88,5 @@ def get_bot_move(model, board, player, player_piece):
       return bot_0.make_move(len(board[0]) + 1)
     case 1:
       return bot_1.make_move(board, player, player_piece)
+    case 2:
+      return bot_2.make_move(board, player, player_piece)

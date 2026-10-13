@@ -45,6 +45,19 @@ Gameloop
 5. Swap player V
 6. Loop V
 ----------------------------------------------------------
+
+Board:
+
+[
+
+[' ', ' ', ' ', ' ', ' ', ' ', ' ',]
+[' ', ' ', ' ', ' ', ' ', ' ', ' ',]
+[' ', ' ', ' ', ' ', ' ', ' ', ' ',]
+[' ', ' ', ' ', ' ', ' ', ' ', ' ',]
+[' ', ' ', ' ', ' ', ' ', ' ', ' ',]
+[' ', ' ', ' ', ' ', ' ', ' ', ' ',]
+
+]
 """
 
 nisse = input("Want to play against Da Bot? (Y / N): ")
@@ -53,7 +66,7 @@ if nisse.lower() == "n":
   bot = False
 else:
   bot = True
-  model = int(input("How strong should Da Bot be? (0 - 1): "))
+  model = int(input("How strong should Da Bot be? (0 - 2): "))
 
 while True:
   move = my_functions.ask_player(player, player_piece, legal_moves)
@@ -84,4 +97,3 @@ while True:
   if progress == (WIDTH * HEIGHT):
     print("TIE")
     break
-  

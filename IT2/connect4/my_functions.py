@@ -1,3 +1,5 @@
+from turtle import width
+
 import check_win
 import bot_0
 import bot_1
@@ -81,6 +83,7 @@ def play_turn(move, player, player_piece, board, width, height, colors, backgrou
 def get_bot_move(model, board, player, player_piece):
   match model:
     case 0:
-      return bot_0.make_move(WIDTH)
+      print(len(board[0]))
+      return bot_0.make_move(len(board[0]) + 1)
     case 1:
       return bot_1.make_move(board, player, player_piece)

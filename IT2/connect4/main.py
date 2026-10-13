@@ -6,6 +6,7 @@ import bot_1
 WIDTH = 7
 HEIGHT = 6
 
+progress = 0
 
 colors = {
   0: "\x1b[31m",
@@ -75,6 +76,12 @@ while True:
 
       if player != bot_player:
         break  # move succeeded (or bot won) - stop retrying
-
+    
     if player is None:
       break
+
+  progress += 1
+  if progress == (WIDTH * HEIGHT):
+    print("TIE")
+    break
+  

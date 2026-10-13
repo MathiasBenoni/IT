@@ -1,5 +1,6 @@
-import re
 import check_win
+import bot_0
+import bot_1
 
 swap = {0: 1, 1:0}
 
@@ -14,13 +15,20 @@ def create_board(width, height):
     board.append(column)
   return board
 
-def print_board(width, height, board):
+def print_board(width, height, board, player_piece, colors, backgrounds):
+  piece_to_player = {piece: p for p, piece in player_piece.items()}
+
   print()
 
   for y in range(height):
     print("|", end="")
     for x in range(width):
-      print(board[x][y] + "|", end="")
+      cell = board[x][y]
+      if cell == " ":
+        print(cell + "|", end="")
+      else:
+        owner = piece_to_player[cell]
+        print(colors[owner] + backgrounds[owner] + cell + colors["White"] + backgrounds["No"] + "|", end="")
     print()
 
   print("---------------")
@@ -41,13 +49,13 @@ def ask_player(player, player_piece, legal_moves):
     except ValueError:
       print("Try again")
 
-def place_piece(move, board, player_piece, player, colors, backgrounds):
+def place_piece(move, board, player_piece, player):
   x = move - 1
   column = board[x]
 
   for y in range(len(column) - 1, -1, -1):
     if column[y] == " ":
-      column[y] = colors[player] + backgrounds[player] + str(player_piece[player]) + colors["White"] + backgrounds["No"]
+      column[y] = str(player_piece[player])
       return y
 
   print("Column full")
@@ -57,23 +65,22 @@ def swap_player(current_player):
   new_player = swap[current_player]
   return new_player
 
-def strip_colors(board):
-  plain_board = []
-  for column in board:
-    plain_column = [re.sub(r"\x1b\[[0-9;]*m", "", cell) for cell in column]
-    plain_board.append(plain_column)
-  return plain_board
-
 def play_turn(move, player, player_piece, board, width, height, colors, backgrounds):
-  placed_row = place_piece(move, board, player_piece, player, colors, backgrounds)
+  placed_row = place_piece(move, board, player_piece, player)
   if placed_row is None:
     return player  # column full, same player retries
 
-  print_board(width, height, board)
-  plain_board = strip_colors(board)
+  print_board(width, height, board, player_piece, colors, backgrounds)
 
-  if check_win.check_win(move - 1, placed_row, player_piece, player, plain_board):
+  if check_win.check_win(move - 1, placed_row, player_piece, player, board):
     print(f"Player {player_piece[player]} WON!")
     return None
 
   return swap_player(player)
+
+def get_bot_move(model, board, player, player_piece):
+  match model:
+    case 0:
+      return bot_0.make_move(WIDTH)
+    case 1:
+      return bot_1.make_move(board, player, player_piece)

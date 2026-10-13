@@ -28,7 +28,7 @@ move = None
 legal_moves = [1, 2, 3, 4, 5, 6, 7]
 
 board = my_functions.create_board(WIDTH, HEIGHT)
-my_functions.print_board(WIDTH, HEIGHT, board)
+my_functions.print_board(WIDTH, HEIGHT, board, player_piece, colors, backgrounds)
 
 """
 Gameloop
@@ -54,13 +54,6 @@ else:
   bot = True
   model = int(input("How strong should Da Bot be? (0 - 1): "))
 
-def get_bot_move(model, borad, player, player_piece):
-  match model:
-    case 0:
-      return bot_0.make_move(WIDTH)
-    case 1:
-      return bot_1.make_move(board, player, player_piece)
-
 while True:
   move = my_functions.ask_player(player, player_piece, legal_moves)
   if move == 0:
@@ -72,8 +65,7 @@ while True:
 
   if bot and player == 1:
     while True:
-      plain_board = my_functions.strip_colors(board)
-      move = get_bot_move(model, plain_board, player, player_piece)
+      move = my_functions.get_bot_move(model, board, player, player_piece)
       if move is None:
         break
 

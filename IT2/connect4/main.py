@@ -69,6 +69,13 @@ else:
   model = int(input("How strong should Da Bot be? (0 - 2): "))
 
 while True:
+
+  progress += 1
+  #print(f"Progress: {progress}")
+  if progress == (WIDTH * HEIGHT) + 1:
+    print("TIE")
+    break
+
   move = my_functions.ask_player(player, player_piece, legal_moves)
   if move == 0:
     break
@@ -88,12 +95,14 @@ while True:
       player = my_functions.play_turn(move, bot_player, player_piece, board, WIDTH, HEIGHT, colors, backgrounds)
 
       if player != bot_player:
+        progress += 1
+        #print(f"Progress: {progress}")
+        if progress == (WIDTH * HEIGHT) + 1:
+          print("TIE")
+          break
         break  # move succeeded (or bot won) - stop retrying
     
     if player is None:
       break
 
-  progress += 1
-  if progress == (WIDTH * HEIGHT):
-    print("TIE")
-    break
+  

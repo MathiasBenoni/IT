@@ -48,17 +48,29 @@ def bot_2(board, player, player_piece):
 
   for move in range(1, 8):
     local_board = copy.deepcopy(board)
+    x = find_x(move)
 
-    possible_y = my_functions.place_piece(move, local_board, player_piece, player)
-
-    if possible_y is None:
+    if find_y(local_board, x) is None:
       continue # Column is full
+
+    my_functions.place_piece(move, local_board, player_piece, player)
+
+    if find_y(local_board, x) is None:
+      possible_moves.append(move) # my piece fills the column, enemy can't go on top
+      continue
 
     enemy_y = my_functions.place_piece(move, local_board, player_piece, swap[player])
 
+    enemy_wins = check_win.check_win(x, enemy_y, player_piece, swap[player], local_board)
 
-    if enemy_y is not None and  check_win.check_win(find_x(move), enemy_y, player_piece, swap[player], local_board):
-      # print(f"You win, if I were to place on column {move}")
+    local_board[x][enemy_y] = player_piece[player] # swap the enemy piece for mine
+    # no vertical check here
+    i_would_win = (check_win.check_horizontal(x, enemy_y, player_piece, player, local_board)
+                or check_win.check_diagonal_left(x, enemy_y, player_piece, player, local_board)
+                or check_win.check_diagonal_right(x, enemy_y, player_piece, player, local_board))
+
+    if enemy_wins or i_would_win:
+      print(f"You win, if I were to place on column {move} or I destroy a chance for me to win")
       continue
     else:
       possible_moves.append(move)
@@ -75,6 +87,7 @@ def make_move(board, player, player_piece):
   possible_move = bot_1(local_board, player, player_piece)
 
   if possible_move != None:
+    print(f"Bot 1 found a win or block in column {possible_move}")
     return possible_move
 
   else:

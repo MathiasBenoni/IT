@@ -4,6 +4,7 @@ import check_win
 import bot_0
 import bot_1
 import bot_2
+import bot_3
 
 swap = {0: 1, 1:0}
 
@@ -81,7 +82,7 @@ def play_turn(move, player, player_piece, board, width, height, colors, backgrou
 
   return swap_player(player)
 
-def get_bot_move(model, board, player, player_piece):
+def get_bot_move(model, board, player, player_piece, depth=4):
   match model:
     case 0:
       print(len(board[0]))
@@ -90,3 +91,5 @@ def get_bot_move(model, board, player, player_piece):
       return bot_1.make_move(board, player, player_piece)
     case 2:
       return bot_2.make_move(board, player, player_piece)
+    case 3:
+      return bot_3.make_move(board, player, player_piece, depth)

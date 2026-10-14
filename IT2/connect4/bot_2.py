@@ -1,3 +1,5 @@
+from threading import local
+
 import check_win
 
 import random
@@ -27,9 +29,8 @@ def wins_with(local_board, move, player, player_piece):
   local_board[x][y] = " "
   return wins
 
-def make_move(board, player, player_piece):
-  local_board = [column.copy() for column in board]
-
+def bot_1(board, player, player_piece):
+  local_board = board
   # 1. Can I win?
   for move in range(1, 8):
     if wins_with(local_board, move, player, player_piece):
@@ -40,6 +41,28 @@ def make_move(board, player, player_piece):
     if wins_with(local_board, move, swap[player], player_piece):
       return move
 
-  # 3. Otherwise pick a random column that isn't full
-  legal = [move for move in range(1, 8) if find_y(local_board, find_x(move)) is not None]
-  return random.choice(legal)
+  return None
+  
+def bot_2(board, player, player_piece):
+  pass
+
+def make_move(board, player, player_piece):
+  local_board = [column.copy() for column in board]
+
+  possible_move = bot_1(local_board, player, player_piece)
+
+  if possible_move != None:
+    return possible_move
+
+  else:
+    print("Bot 1 did not find any good move")
+    possible_move = bot_2(local_board, player, player_piece)
+
+    if possible_move != None:
+      return possible_move
+
+    else:
+      print("Bot 2 did not find any good move")
+      possible_move = random.randint(1, 7)
+
+      return possible_move

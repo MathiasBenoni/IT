@@ -61,6 +61,12 @@ Board:
 """
 
 nisse = input("Want to play against Da Bot? (Y / N): ")
+start_input = input("Should Da Bot start (Y / N): ")
+
+if start_input.lower() == "n":
+  start = 1
+else:
+  start = 0
 
 if nisse.lower() == "n":
   bot = False
@@ -79,15 +85,7 @@ while True:
     print("TIE")
     break
 
-  move = my_functions.ask_player(player, player_piece, legal_moves)
-  if move == 0:
-    break
-
-  player = my_functions.play_turn(move, player, player_piece, board, WIDTH, HEIGHT, colors, backgrounds)
-  if player is None:
-    break
-
-  if bot and player == 1:
+  if bot and player == start:
     while True:
       move = my_functions.get_bot_move(model, board, player, player_piece, depth)
       if move is None:
@@ -105,7 +103,17 @@ while True:
           break
         break  # move succeeded (or bot won) - stop retrying
     
-    if player is None:
-      break
+      if player is None:
+        break
+
+  move = my_functions.ask_player(player, player_piece, legal_moves)
+  if move == 0:
+    break
+
+  player = my_functions.play_turn(move, player, player_piece, board, WIDTH, HEIGHT, colors, backgrounds)
+  if player is None:
+    break
+
+  
 
   

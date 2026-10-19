@@ -72,10 +72,7 @@ if nisse.lower() == "n":
   bot = False
 else:
   bot = True
-  model = int(input("How strong should Da Bot be? (0 - 3): "))
-  depth = 4
-  if model == 3:
-    depth = int(input("How many moves ahead should Da Bot look? (1 - 6): "))
+  model = int(input("How strong should Da Bot be? (0 - 2): "))
 
 while True:
 
@@ -87,7 +84,7 @@ while True:
 
   if bot and player == start:
     while True:
-      move = my_functions.get_bot_move(model, board, player, player_piece, depth)
+      move = my_functions.get_bot_move(model, board, player, player_piece)
       if move is None:
         break
 
@@ -102,9 +99,9 @@ while True:
           print("TIE")
           break
         break  # move succeeded (or bot won) - stop retrying
-    
-      if player is None:
-        break
+
+    if player is None: # the bot won
+      break # stop the whole game
 
   move = my_functions.ask_player(player, player_piece, legal_moves)
   if move == 0:

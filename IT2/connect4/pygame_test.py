@@ -1,5 +1,6 @@
 import pygame
-import main
+import game
+import my_functions
 
 pygame.init()
 
@@ -12,6 +13,8 @@ while True:
     if event.type == pygame.QUIT:
       pygame.quit()
       raise SystemExit
+
+  
 
   screen.fill("purple")
 

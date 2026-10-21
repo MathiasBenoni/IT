@@ -10,21 +10,6 @@ PADDING = RADIUS / 2
 BOARD_WIDTH = RADIUS * 2 * 7 + PADDING * 4
 BOARD_HEIGHT = RADIUS * 2 * 6 + PADDING * 4
 
-player_piece = {
-  0: "X",
-  1: "O"
-}
-colors = {
-  0: "\x1b[31m",
-  1: "\x1b[34m",
-  "White": "\x1b[37m",
-}
-backgrounds = {
-  0: "\x1b[41m",
-  1: "\x1b[44m",
-  "No": "\x1b[49m"
-}
-
 class Game:
   def __init__(self, width, height):
     self.width = width
@@ -55,8 +40,9 @@ class Game:
     cell_width = BOARD_WIDTH / self.width
     col = int((x - self.left) // cell_width)
     print(col)
-    my_functions.place_piece(col + 1, self.board, player_piece, 0)
-    my_functions.print_board(7, 6, self.board, player_piece, colors, backgrounds)
+    my_functions.place_piece(col + 1, self.board, 0)
+    
+    my_functions.print_board(7, 6, self.board)
     pass
 
 game_1 = Game(7, 6)

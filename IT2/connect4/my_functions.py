@@ -7,6 +7,21 @@ import bot_2
 
 swap = {0: 1, 1:0}
 
+player_piece = {
+  0: "X",
+  1: "O"
+}
+colors = {
+  0: "\x1b[31m",
+  1: "\x1b[34m",
+  "White": "\x1b[37m",
+}
+backgrounds = {
+  0: "\x1b[41m",
+  1: "\x1b[44m",
+  "No": "\x1b[49m"
+}
+
 def create_board(width, height):
   board = []
   for x in range(width):
@@ -18,7 +33,7 @@ def create_board(width, height):
     board.append(column)
   return board
 
-def print_board(width, height, board, player_piece, colors, backgrounds):
+def print_board(width, height, board):
   piece_to_player = {piece: p for p, piece in player_piece.items()}
 
   print()
@@ -38,7 +53,7 @@ def print_board(width, height, board, player_piece, colors, backgrounds):
   print("|1|2|3|4|5|6|7|")
   print()
 
-def ask_player(player, player_piece, legal_moves):
+def ask_player(player, legal_moves):
   while True:
     try:
       move = int(input(f"Player {player_piece[player]} (1 - 7): "))
@@ -52,7 +67,7 @@ def ask_player(player, player_piece, legal_moves):
     except ValueError:
       print("Try again")
 
-def place_piece(move, board, player_piece, player):
+def place_piece(move, board, player):
   x = move - 1
   column = board[x]
 
@@ -68,20 +83,20 @@ def swap_player(current_player):
   new_player = swap[current_player]
   return new_player
 
-def play_turn(move, player, player_piece, board, width, height, colors, backgrounds):
+def play_turn(move, player, board, width, height):
   placed_row = place_piece(move, board, player_piece, player)
   if placed_row is None:
     return player  # column full, same player retries
 
-  print_board(width, height, board, player_piece, colors, backgrounds)
+  print_board(width, height, board)
 
-  if check_win.check_win(move - 1, placed_row, player_piece, player, board):
+  if check_win.check_win(move - 1, placed_row, player, board):
     print(f"Player {player_piece[player]} WON!")
     return None
 
   return swap_player(player)
 
-def get_bot_move(model, board, player, player_piece):
+def get_bot_move(model, board, player):
   match model:
     case 0:
       print(len(board[0]))

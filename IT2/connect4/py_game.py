@@ -13,7 +13,7 @@ screen = pygame.display.set_mode((SCREEN_WIDHT, SCREEN_HEIGHT))
 
 clock = pygame.time.Clock()
 
-COOLDOWN = 1000
+COOLDOWN = 300
 
 last_click = -COOLDOWN
 waiting = False

@@ -65,3 +65,15 @@ for n in range(len(temp_list)):
   final_list.append(temp['fag'])
 
 print(final_list)
+
+"""Oppgave b
+    Lag en liste med alle klassene, sortert etter gjennomsnittskarakteren pr klasse i IT2
+"""
+
+klasser = []
+
+for n in elev_list:
+  if n[2] not in klasser:
+    klasser.append(n[2])
+
+print(klasser)

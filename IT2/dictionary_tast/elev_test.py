@@ -66,7 +66,8 @@ for n in range(len(temp_list)):
 
 print(final_list)
 
-"""Oppgave b
+"""
+    Oppgave b
     Lag en liste med alle klassene, sortert etter gjennomsnittskarakteren pr klasse i IT2
 """
 

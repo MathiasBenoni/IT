@@ -62,3 +62,34 @@ people = [
 
 
 # Write your code below
+
+# a)
+
+sorted_nums_lowest = sorted(numbers)
+print("Lowest to highest:", sorted_nums_lowest)
+
+# b)
+
+sorted_nums_highest = sorted(numbers, reverse=True)
+print("Highest to lowest:", sorted_nums_highest)
+
+# c)
+
+sorted_words_length = sorted(words, key=len)
+print("Least to most characters:", sorted_words_length)
+
+# d)
+
+sorted_fruits_price = sorted(prices, key=prices.get)
+print(sorted_fruits_price)
+
+# e)
+
+expensive_fruits = sorted_fruits_price[::-1]
+print(expensive_fruits[:3])
+
+# f)
+
+fruit_price = []
+fruit_price.extend(prices.items())
+print(fruit_price)

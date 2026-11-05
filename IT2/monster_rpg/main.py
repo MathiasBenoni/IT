@@ -1,6 +1,6 @@
 import pygame
 from classes import *
-
+import functions as my_funcs
 HEIGHT = 720
 WIDTH = 1280
 
@@ -18,12 +18,11 @@ running = True
 player = Entety(10, False)
 enemy = Entety(10, True)
 
-def start_game():
-   print("START")
+
 
 buttons = [
-    Button(300, 200, 'gray', (200, 100), 'Start', start_game),
-    Button(300, 200, 'gray', (200, 400), 'Quit'),
+    Button(300, 200, 'gray', (200, 100), 'Start', my_funcs.start_game),
+    Button(300, 200, 'gray', (200, 400), 'Quit', my_funcs.quit_game),
     Button(300, 200, 'gray', (200, 300), 'test')
   ]
 

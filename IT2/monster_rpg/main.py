@@ -18,7 +18,14 @@ running = True
 player = Entety(10, False)
 enemy = Entety(10, True)
 
-button_1 = Button(300, 200, 'gray', (200, 300), 'test')
+def start_game():
+   print("START")
+
+buttons = [
+    Button(300, 200, 'gray', (200, 100), 'Start', start_game),
+    Button(300, 200, 'gray', (200, 400), 'Quit'),
+    Button(300, 200, 'gray', (200, 300), 'test')
+  ]
 
 
 while running:
@@ -31,8 +38,8 @@ while running:
 
   # LOGIC
 
-  if button_1.update(events):
-    print("CLICKED")
+  for button in buttons:
+      button.update(events)
   
 
 
@@ -40,7 +47,8 @@ while running:
 
   screen.fill("purple")
 
-  button_1.draw_button(screen)
+  for button in buttons:
+      button.draw_button(screen)
 
 
   pygame.display.flip()

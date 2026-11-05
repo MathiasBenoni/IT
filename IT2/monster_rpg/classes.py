@@ -12,7 +12,7 @@ class Entety:
 
 class Button:
   
-  def __init__(self, width : int, height : int, color, pos : tuple, text : str, border_radius=10):
+  def __init__(self, width : int, height : int, color : str, pos : tuple, text : str, on_click=None, border_radius=10):
     if color == None:
       color = 'blue'
     self.width = width
@@ -20,6 +20,7 @@ class Button:
     self.color = color
     self.border_radius = border_radius
     self.pos = pos
+    self.on_click = on_click
 
     self.text = text
     self.font = pygame.font.SysFont('Arial', 100)
@@ -30,14 +31,19 @@ class Button:
     clicked = False
     if self.is_hovering():
       self.color = 'blue'
-      
-      for event in events:
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-          clicked = True
+
+      if self.clicked(events):
+        self.on_click()
+
     else:
       self.color = self.default_color
 
-    return clicked
+  def clicked(self, events):
+    for event in events:
+      if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        clicked = True
+        return clicked
+    return False
 
   def draw_button(self, screen):
     pygame.draw.rect(screen, self.color, (

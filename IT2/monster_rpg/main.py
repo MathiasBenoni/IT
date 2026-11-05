@@ -13,17 +13,19 @@ pygame.display.set_caption("Awesome game")
 
 running = True
 
-
-
 player = Entety(10, False)
 enemy = Entety(10, True)
 
+button_width = 150
+button_height = 40
+padding = 10
 
 
 buttons = [
-    Button(300, 200, 'gray', (200, 100), 'Start', my_funcs.start_game),
-    Button(300, 200, 'gray', (200, 400), 'Quit', my_funcs.quit_game),
-    Button(300, 200, 'gray', (200, 300), 'test')
+    Button(button_width, button_height, 'gray', (WIDTH // 2, HEIGHT // 2 - button_height - padding), 'Start', my_funcs.start_game),
+    Button(button_width, button_height, 'gray', (WIDTH // 2, HEIGHT // 2), 'test'),
+    Button(button_width, button_height, 'gray', (WIDTH // 2, HEIGHT // 2 + button_height + padding), 'Quit', my_funcs.quit_game)
+    
   ]
 
 

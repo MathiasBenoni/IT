@@ -12,7 +12,7 @@ class Entety:
 
 class Button:
   
-  def __init__(self, width : int, height : int, color : str, pos : tuple, text : str, on_click=None, border_radius=10):
+  def __init__(self, width : int, height : int, color : str, pos : tuple, text : str, on_click=None, border_radius=5):
     if color == None:
       color = 'blue'
     self.width = width
@@ -23,7 +23,7 @@ class Button:
     self.on_click = on_click
 
     self.text = text
-    self.font = pygame.font.SysFont('Arial', 100)
+    self.font = pygame.font.SysFont('Arial', 30)
 
     self.default_color = self.color
 

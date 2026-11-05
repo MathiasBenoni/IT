@@ -22,16 +22,26 @@ button_1 = Button(300, 200, 'gray', (200, 300), 'test')
 
 
 while running:
-  for event in pygame.event.get():
+  events = pygame.event.get()
+  for event in events:
 
     if event.type == pygame.QUIT:
       running = False
+    
 
-  button_1.update()
+  # LOGIC
+
+  if button_1.update(events):
+    print("CLICKED")
+  
+
+
+  # VISUAL
 
   screen.fill("purple")
 
   button_1.draw_button(screen)
+
 
   pygame.display.flip()
 

@@ -26,11 +26,18 @@ class Button:
 
     self.default_color = self.color
 
-  def update(self):
+  def update(self, events):
+    clicked = False
     if self.is_hovering():
       self.color = 'blue'
+      
+      for event in events:
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+          clicked = True
     else:
       self.color = self.default_color
+
+    return clicked
 
   def draw_button(self, screen):
     pygame.draw.rect(screen, self.color, (

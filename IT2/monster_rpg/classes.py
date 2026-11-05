@@ -27,6 +27,11 @@ class Button:
 
     self.default_color = self.color
 
+    self.rect = pygame.Rect(0, 0, self.width, self.height)
+    self.rect.center = self.pos
+    
+    
+
   def update(self, events):
     
     if self.is_hovering():
@@ -47,25 +52,12 @@ class Button:
     return False
 
   def draw_button(self, screen):
-    pygame.draw.rect(screen, self.color, (
-      self.pos[0],
-      self.pos[1],
-      self.width,
-      self.height
-    ), 0, self.border_radius)
+    pygame.draw.rect(screen, self.color, self.rect, 0, self.border_radius)
 
     text_surface = self.font.render(self.text, True, 'white')
 
-    text_rect = text_surface.get_rect(
-      center=(
-        self.pos[0] + self.width // 2,
-        self.pos[1] + self.height // 2
-      )
-    )
+    text_rect = text_surface.get_rect(center=self.rect.center)
     screen.blit(text_surface, text_rect)
 
   def is_hovering(self):
-    temp_rect = pygame.Rect(self.pos[0], self.pos[1], self.width, self.height)
-    
-
-    return temp_rect.collidepoint(pygame.mouse.get_pos())
+    return self.rect.collidepoint(pygame.mouse.get_pos())

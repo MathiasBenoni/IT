@@ -14,19 +14,20 @@ pygame.display.set_caption("Awesome game")
 running = True
 
 
-global_y_pos = HEIGHT // 2
-enemy_x_pos = WIDTH // 2 + 50
-enteties = [
-  Entety(10, False, 'blue', (100, global_y_pos)), # Player
-  Entety(10, True, 'black', (enemy_x_pos, global_y_pos)), 
-  Entety(20, True, 'cyan', (enemy_x_pos + 50, global_y_pos))
-]
-
-player = enteties[0]
-
 button_width = 150
 button_height = 40
 padding = 10
+
+global_y_pos = HEIGHT // 2
+enemy_x_pos = WIDTH // 2 + 150
+
+enteties = [
+  Entety(100, False, 'blue', (WIDTH // 6 - button_width // 4, global_y_pos)), # Player
+  Entety(200, True, 'black', (enemy_x_pos, global_y_pos)), 
+  Entety(50, True, 'cyan', (enemy_x_pos + 200 + 50 + padding, global_y_pos))
+]
+
+player = enteties[0]
 
 
 buttons = [

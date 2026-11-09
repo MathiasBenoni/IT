@@ -1,18 +1,29 @@
 import pygame
 
 class Entety:
-  def __init__(self, radius : int, hostile : bool):
+  def __init__(self, radius : int, hostile : bool, color : str, pos : tuple):
     self.radius = radius
     self.hostile = hostile
 
-  def was_attacked(self, damage):
+    self.color = color
+
+    self.pos = pos
+    self.rect = pygame.Rect(0, 0, self.radius, self.radius)
+    self.rect.center = self.pos
+
+  def take_damage(self, damage):
     self.radius -= damage
     if self.radius <= 0:
       return False
+    
+  def draw_self(self, screen):
+    pygame.draw.circle(screen, self.color, (self.pos), self.radius)
+    pass
+
 
 class Button:
   
-  def __init__(self, width : int, height : int, color : str, pos : tuple, text : str, on_click=None, border_radius=5):
+  def __init__(self, width : int, height : int, color : str, hover_color : str, pos : tuple, text : str, on_click=None, border_radius=5):
     if color == None:
       color = 'blue'
     self.width = width
@@ -26,6 +37,7 @@ class Button:
     self.font = pygame.font.SysFont('Arial', 30)
 
     self.default_color = self.color
+    self.hover_color = hover_color
 
     self.rect = pygame.Rect(0, 0, self.width, self.height)
     self.rect.center = self.pos
@@ -35,7 +47,7 @@ class Button:
   def update(self, events):
     
     if self.is_hovering():
-      self.color = 'blue'
+      self.color = self.hover_color
 
       if self.clicked(events):
         if self.on_click:
@@ -51,7 +63,7 @@ class Button:
       
     return False
 
-  def draw_button(self, screen):
+  def draw_self(self, screen):
     pygame.draw.rect(screen, self.color, self.rect, 0, self.border_radius)
 
     text_surface = self.font.render(self.text, True, 'white')

@@ -13,8 +13,13 @@ pygame.display.set_caption("Awesome game")
 
 running = True
 
-player = Entety(10, False)
-enemy = Entety(10, True)
+enteties = [
+  Entety(10, False, 'blue', (100, 100)),
+  Entety(10, True, 'black', (10, 100)), 
+  Entety(20, True, 'cyan', (50, 100))
+]
+
+player = enteties[0]
 
 button_width = 150
 button_height = 40
@@ -22,12 +27,10 @@ padding = 10
 
 
 buttons = [
-    Button(button_width, button_height, 'gray', (WIDTH // 2, HEIGHT // 2 - button_height - padding), 'Start', my_funcs.start_game),
-    Button(button_width, button_height, 'gray', (WIDTH // 2, HEIGHT // 2), 'test'),
-    Button(button_width, button_height, 'gray', (WIDTH // 2, HEIGHT // 2 + button_height + padding), 'Quit', my_funcs.quit_game)
-    
+    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 2, HEIGHT // 2 - button_height - padding), 'Start', my_funcs.start_game),
+    Button(button_width, button_height, 'gray', 'blue', (WIDTH // 2, HEIGHT // 2), 'Attack'),
+    Button(button_width, button_height, 'gray', 'green', (WIDTH // 2, HEIGHT // 2 + button_height + padding), 'Quit', my_funcs.quit_game)
   ]
-
 
 while running:
   events = pygame.event.get()
@@ -46,11 +49,13 @@ while running:
 
   # VISUAL
 
-  screen.fill("purple")
+  screen.fill("white")
 
   for button in buttons:
-      button.draw_button(screen)
+      button.draw_self(screen)
 
+  for entety in enteties:
+     entety.draw_self(screen)
 
   pygame.display.flip()
 

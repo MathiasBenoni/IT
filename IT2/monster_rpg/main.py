@@ -45,14 +45,20 @@ while running:
     
 
   # LOGIC
-
-  for button in buttons:
+  try:
+    for button in buttons:
       button.update(events)
 
-  for entety in enteties[:]:
-     if entety.radius <= 0:
-        enteties.remove(entety)
+  except IndexError:
+      print("error")
 
+
+  for entety in enteties[:]:
+    if entety.radius <= 0:
+      enteties.remove(entety)
+
+      if len(enteties) == 1:
+         print("DONE")
 
   # VISUAL
 

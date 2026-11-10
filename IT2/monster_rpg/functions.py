@@ -10,6 +10,6 @@ def quit_game():
 def attack(enemy : object, damage):
   enemy.take_damage(damage)
 
-def attack_all(enemies : list, damage : int):
+def attack_multiple(enemies : list, damage : int):
   for enemy in enemies:
     enemy.take_damage(damage)

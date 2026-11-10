@@ -20,7 +20,7 @@ button_width = 150
 button_height = 40
 padding = 10
 
-global_y_pos = HEIGHT // 2
+global_y_pos = HEIGHT - 150
 enemy_x_pos = WIDTH // 2 + 150
 
 enteties = [
@@ -49,6 +49,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 background = pygame.image.load(os.path.join(BASE_DIR, "assets", "images", "background.jpg")).convert()
 scale = screen.get_height() / background.get_height()
 background = pygame.transform.scale(background, screen.get_size())
+
+fences = pygame.image.load(os.path.join(BASE_DIR, "assets", "images", "foreground_fences.png")).convert_alpha()
+fences = pygame.transform.scale(fences, screen.get_size())
 
 
 GROUND_Y = int(200 * scale)
@@ -86,11 +89,13 @@ while running:
   screen.fill("white")
   screen.blit(background, (0, 0))
 
-  for button in buttons:
-      button.draw_self(screen)
-
   for entety in enteties:
      entety.draw_self(screen)
+
+  screen.blit(fences, (0, 0))
+
+  for button in buttons:
+        button.draw_self(screen)
 
   pygame.display.flip()
 

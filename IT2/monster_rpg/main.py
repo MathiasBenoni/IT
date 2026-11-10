@@ -1,4 +1,6 @@
 import pygame
+import os
+
 from classes import *
 import functions as my_funcs
 HEIGHT = 720
@@ -9,7 +11,7 @@ clock = pygame.time.Clock()
 pygame.init()
 pygame.font.init()
 
-pygame.display.set_caption("Awesome game")
+pygame.display.set_caption("Voidstrike")
 
 running = True
 
@@ -22,25 +24,36 @@ global_y_pos = HEIGHT // 2
 enemy_x_pos = WIDTH // 2 + 150
 
 enteties = [
-  Entety(100, False, 'blue', (WIDTH // 6 - button_width // 4, global_y_pos)), # Player
-  Entety(200, True, 'black', (enemy_x_pos, global_y_pos)), 
-  Entety(50, True, 'cyan', (enemy_x_pos + 200 + 50 + padding, global_y_pos))
+  Entity(100, False, 'blue', (WIDTH // 6 - button_width // 4, global_y_pos)), # Player
+  Entity(200, True, 'black', (enemy_x_pos, global_y_pos)), 
+  Entity(50, True, 'cyan', (enemy_x_pos + 200 + 50 + padding, global_y_pos))
 ]
 
 player = enteties[0]
 
 ### DAMAGE VARS
 
-tentacles = 5
-lightning = 2
+tentacles = 2
+lightning = 4
 
 
 buttons = [
     Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 - button_height - padding), 'Stab', lambda: my_funcs.attack(enteties[1], 10)),
-    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2), 'Tentacles', lambda: my_funcs.attack_multiple(enteties[1:len(enteties)], tentacles)),
+    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2), 'Tentacles', lambda: my_funcs.attack(enteties[len(enteties) - 1], tentacles)),
     Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 + button_height + padding), 'Lightning', lambda: my_funcs.attack_multiple(enteties[1:len(enteties)], lightning)),
     Button(button_width, button_height, 'gray', 'green', (WIDTH // 3, HEIGHT // 2 + button_height * 2 + padding * 2), 'Quit', my_funcs.quit_game)
   ]
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+background = pygame.image.load(os.path.join(BASE_DIR, "assets", "images", "background.jpg")).convert()
+scale = screen.get_height() / background.get_height()
+background = pygame.transform.scale(background, screen.get_size())
+
+
+GROUND_Y = int(200 * scale)
+
+
 
 while running:
   events = pygame.event.get()
@@ -64,11 +77,14 @@ while running:
       enteties.remove(entety)
 
       if len(enteties) == 1:
-         print("DONE")
+        print("DONE")
+        my_funcs.quit_game()
+        pass
 
   # VISUAL
 
   screen.fill("white")
+  screen.blit(background, (0, 0))
 
   for button in buttons:
       button.draw_self(screen)

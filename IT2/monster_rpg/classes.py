@@ -1,6 +1,6 @@
 import pygame
 
-class Entety:
+class Entity:
   def __init__(self, radius : int, hostile : bool, color : str, pos : tuple):
     self.radius = radius
     self.hostile = hostile

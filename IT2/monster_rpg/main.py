@@ -24,9 +24,9 @@ global_y_pos = HEIGHT - 150
 enemy_x_pos = WIDTH // 2 + 150
 
 enteties = [
-  Entity(100, False, 'blue', (WIDTH // 6 - button_width // 4, global_y_pos)), # Player
-  Entity(200, True, 'black', (enemy_x_pos, global_y_pos)), 
-  Entity(50, True, 'cyan', (enemy_x_pos + 200 + 50 + padding, global_y_pos))
+  Creature(100, False, 'blue', (WIDTH // 6 - button_width // 4, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/turtle.webp"), # Player
+  Creature(200, True, 'black', (enemy_x_pos, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif"), 
+  Creature(50, True, 'cyan', (enemy_x_pos + 200 + 50 + padding, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif")
 ]
 
 player = enteties[0]
@@ -50,8 +50,8 @@ background = pygame.image.load(os.path.join(BASE_DIR, "assets", "images", "backg
 scale = screen.get_height() / background.get_height()
 background = pygame.transform.scale(background, screen.get_size())
 
-fences = pygame.image.load(os.path.join(BASE_DIR, "assets", "images", "foreground_fences.png")).convert_alpha()
-fences = pygame.transform.scale(fences, screen.get_size())
+# fences = pygame.image.load(os.path.join(BASE_DIR, "assets", "images", "foreground_fences.png")).convert_alpha()
+# fences = pygame.transform.scale(fences, screen.get_size())
 
 
 GROUND_Y = int(200 * scale)
@@ -76,13 +76,12 @@ while running:
 
 
   for entety in enteties[:]:
-    if entety.radius <= 0:
+    if entety.health <= 0:
       enteties.remove(entety)
 
       if len(enteties) == 1:
         print("DONE")
         my_funcs.quit_game()
-        pass
 
   # VISUAL
 
@@ -92,7 +91,7 @@ while running:
   for entety in enteties:
      entety.draw_self(screen)
 
-  screen.blit(fences, (0, 0))
+  # screen.blit(fences, (0, 0))
 
   for button in buttons:
         button.draw_self(screen)

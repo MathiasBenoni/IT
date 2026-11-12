@@ -1,36 +1,52 @@
 import pygame
 
 class Entity:
-  def __init__(self, radius : int, hostile : bool, color : str, pos : tuple):
-    self.radius = radius
+  def __init__(self, pos : tuple):
+    self.pos = pos
+  
+
+class Creature(Entity):
+  def __init__(self, health : int, hostile : bool, color : str, pos : tuple, sprite : str):
+    super().__init__(pos)
     self.hostile = hostile
+    self.health = health
 
     self.color = color
 
+    self.sprite = sprite
+
     self.pos = pos
-    self.rect = pygame.Rect(0, 0, self.radius, self.radius)
-    self.rect.center = self.pos
+    # self.rect = pygame.Rect(0, 0, self.radius, self.radius)
+    # self.rect.center = self.pos
 
   def take_damage(self, damage):
-    self.radius -= damage
-    if self.radius <= 0:
+    self.health -= damage
+    if self.health <= 0:
       return False
     
   def draw_self(self, screen):
-    pygame.draw.circle(screen, self.color, (self.pos), self.radius)
-    pass
+    
+    self.image = pygame.image.load(self.sprite)
+    self.image_rect = self.image.get_rect(center=self.pos)
+
+    if self.hostile:
+      screen.blit(pygame.transform.flip(self.image, True, False), self.image_rect)
+    else:
+      screen.blit(self.image, self.image_rect)
+    # pygame.draw.circle(screen, self.color, (self.pos), self.radius)
 
 
-class Button:
+class Button(Entity):
   
   def __init__(self, width : int, height : int, color : str, hover_color : str, pos : tuple, text : str, on_click=None, border_radius=5):
     if color == None:
       color = 'blue'
+    super().__init__(pos)
     self.width = width
     self.height = height
     self.color = color
     self.border_radius = border_radius
-    self.pos = pos
+    
     self.on_click = on_click
 
     self.text = text

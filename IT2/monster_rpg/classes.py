@@ -6,6 +6,7 @@ class Entity:
   
 
 class Creature(Entity):
+  id = 0
   def __init__(self, health : int, hostile : bool, color : str, pos : tuple, sprite : str):
     super().__init__(pos)
     self.hostile = hostile
@@ -18,6 +19,9 @@ class Creature(Entity):
     self.pos = pos
     # self.rect = pygame.Rect(0, 0, self.radius, self.radius)
     # self.rect.center = self.pos
+
+    self.id = Creature.id
+    Creature.id += 1
 
 
     self.heathbar = HealthBar(self.pos)

@@ -26,6 +26,9 @@ class Creature(Entity):
 
     self.heathbar = HealthBar(self.pos)
 
+  def __repr__(self):
+    return f"{self.__class__.__name__}({self.health}, {self.hostile}, {self.color}, {self.pos}, '{self.sprite}')"
+
   def take_damage(self, damage):
     self.health -= damage
     if self.health <= 0:

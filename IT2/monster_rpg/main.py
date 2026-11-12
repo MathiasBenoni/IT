@@ -31,6 +31,8 @@ enteties = [
 
 player = enteties[0]
 
+# print(enteties)
+
 ### DAMAGE VARS
 
 tentacles = 2

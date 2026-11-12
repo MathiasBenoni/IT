@@ -19,6 +19,9 @@ class Creature(Entity):
     # self.rect = pygame.Rect(0, 0, self.radius, self.radius)
     # self.rect.center = self.pos
 
+
+    self.heathbar = HealthBar(self.pos)
+
   def take_damage(self, damage):
     self.health -= damage
     if self.health <= 0:
@@ -33,8 +36,26 @@ class Creature(Entity):
       screen.blit(pygame.transform.flip(self.image, True, False), self.image_rect)
     else:
       screen.blit(self.image, self.image_rect)
+
+    self.heathbar.draw(screen)
     # pygame.draw.circle(screen, self.color, (self.pos), self.radius)
 
+class HealthBar:
+  def __init__(self, pos : tuple, color="red", border_radius=5):
+
+    self.width = 100
+    self.height = 20
+    self.color = color
+    self.border_radius = border_radius
+
+    self.pos = pos
+
+    self.rect = pygame.Rect(0, 0, self.width, self.height)
+    self.rect.center = self.pos
+
+  def draw(self, screen):
+    pygame.draw.rect(screen, self.color, self.rect, 0, self.border_radius)
+    pass
 
 class Button(Entity):
   

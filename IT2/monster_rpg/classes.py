@@ -7,11 +7,9 @@ class Entity:
 
 class Creature(Entity):
   id = 0
-  def __init__(self, health : int, color : str, pos : tuple, sprite : str):
+  def __init__(self, health : int, pos : tuple, sprite : str):
     super().__init__(pos)
     self.health = health
-
-    self.color = color
 
     self.sprite = sprite
 

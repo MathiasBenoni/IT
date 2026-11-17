@@ -40,7 +40,10 @@ class Creature(Entity):
     screen.blit(self.image, self.image_rect)
 
     self.heathbar.draw(screen)
-    # pygame.draw.circle(screen, self.color, (self.pos), self.radius)
+
+  def attack(self, move, damage):
+    self.pos[1] -= 10 # Jump in the air and slowly come down
+
 
 class Foe(Creature):
   def __init__(self, health : int, pos : tuple, sprite : str, attacks : tuple):

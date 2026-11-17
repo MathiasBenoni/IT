@@ -7,9 +7,8 @@ class Entity:
 
 class Creature(Entity):
   id = 0
-  def __init__(self, health : int, hostile : bool, color : str, pos : tuple, sprite : str):
+  def __init__(self, health : int, color : str, pos : tuple, sprite : str):
     super().__init__(pos)
-    self.hostile = hostile
     self.health = health
 
     self.color = color
@@ -17,8 +16,9 @@ class Creature(Entity):
     self.sprite = sprite
 
     self.pos = pos
-    # self.rect = pygame.Rect(0, 0, self.radius, self.radius)
-    # self.rect.center = self.pos
+
+    self.image = pygame.image.load(self.sprite)
+    self.image_rect = self.image.get_rect(center=self.pos)
 
     self.id = Creature.id
     Creature.id += 1
@@ -37,16 +37,24 @@ class Creature(Entity):
     
   def draw_self(self, screen):
     
-    self.image = pygame.image.load(self.sprite)
-    self.image_rect = self.image.get_rect(center=self.pos)
 
-    if self.hostile:
-      screen.blit(pygame.transform.flip(self.image, True, False), self.image_rect)
-    else:
-      screen.blit(self.image, self.image_rect)
+    screen.blit(self.image, self.image_rect)
 
     self.heathbar.draw(screen)
     # pygame.draw.circle(screen, self.color, (self.pos), self.radius)
+
+class Foe(Creature):
+  def __init__(self, health : int, color : str, pos : tuple, sprite : str, attacks : tuple):
+    super().__init__(health, color, pos, sprite)
+
+    self.image = pygame.transform.flip(self.image, True, False)
+  
+    self.attacks = attacks
+
+
+class Player(Creature):
+  def __init__(self, health, color, pos, sprite):
+    super().__init__(health, color, pos, sprite)
 
 class HealthBar:
   def __init__(self, pos : tuple, value, color="red", border_radius=5):

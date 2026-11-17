@@ -23,13 +23,13 @@ padding = 10
 global_y_pos = HEIGHT - 150
 enemy_x_pos = WIDTH // 2 + 150
 
-enteties = [
+creatures = [
   Player(100, (WIDTH // 6 - button_width // 4, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/turtle.webp"),
-  Foe(200, (enemy_x_pos, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif", lambda: my_funcs.attack(enteties[0], 35)), 
-  Foe(50, (enemy_x_pos + 200 + 50 + padding, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif", lambda: my_funcs.attack(enteties[0], 15))
+  Foe(200, (enemy_x_pos, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif", lambda: my_funcs.attack(creatures[0], 35)), 
+  Foe(50, (enemy_x_pos + 200 + 50 + padding, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif", lambda: my_funcs.attack(creatures[0], 15))
 ]
 
-player = enteties[0]
+player = creatures[0]
 
 # print(enteties)
 
@@ -40,9 +40,9 @@ lightning = 4
 
 
 buttons = [
-    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 - button_height - padding), 'Stab', lambda: my_funcs.attack(enteties[1], 10)),
-    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2), 'Tentacles', lambda: my_funcs.attack(enteties[len(enteties) - 1], tentacles)),
-    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 + button_height + padding), 'Lightning', lambda: my_funcs.attack_multiple(enteties[1:len(enteties)], lightning)),
+    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 - button_height - padding), 'Stab', lambda: my_funcs.attack(creatures[1], 10)),
+    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2), 'Tentacles', lambda: my_funcs.attack(creatures[len(creatures) - 1], tentacles)),
+    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 + button_height + padding), 'Lightning', lambda: my_funcs.attack_multiple(creatures[1:len(creatures)], lightning)),
     Button(button_width, button_height, 'gray', 'green', (WIDTH // 3, HEIGHT // 2 + button_height * 2 + padding * 2), 'Quit', my_funcs.quit_game)
   ]
 
@@ -77,11 +77,11 @@ while running:
       print("error")
 
 
-  for entety in enteties[:]:
+  for entety in creatures[:]:
     if entety.health <= 0:
-      enteties.remove(entety)
+      creatures.remove(entety)
 
-      if len(enteties) == 1:
+      if len(creatures) == 1:
         print("DONE")
         my_funcs.quit_game()
 
@@ -90,7 +90,7 @@ while running:
   screen.fill("white")
   screen.blit(background, (0, 0))
 
-  for entety in enteties:
+  for entety in creatures:
      entety.draw_self(screen)
 
   # screen.blit(fences, (0, 0))

@@ -42,8 +42,8 @@ class Creature(Entity):
     # pygame.draw.circle(screen, self.color, (self.pos), self.radius)
 
 class Foe(Creature):
-  def __init__(self, health : int, color : str, pos : tuple, sprite : str, attacks : tuple):
-    super().__init__(health, color, pos, sprite)
+  def __init__(self, health : int, pos : tuple, sprite : str, attacks : tuple):
+    super().__init__(health, pos, sprite)
 
     self.image = pygame.transform.flip(self.image, True, False)
   
@@ -51,8 +51,8 @@ class Foe(Creature):
 
 
 class Player(Creature):
-  def __init__(self, health, color, pos, sprite):
-    super().__init__(health, color, pos, sprite)
+  def __init__(self, health, pos, sprite):
+    super().__init__(health, pos, sprite)
 
 class HealthBar:
   def __init__(self, pos : tuple, value, color="red", border_radius=5):

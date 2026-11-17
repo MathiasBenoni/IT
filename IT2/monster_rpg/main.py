@@ -42,7 +42,7 @@ lightning = 4
 buttons = [
     Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 - button_height - padding), 'Stab', lambda: my_funcs.attack(creatures[1], 10)),
     Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2), 'Tentacles', lambda: my_funcs.attack(creatures[len(creatures) - 1], tentacles)),
-    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 + button_height + padding), 'Lightning', lambda: my_funcs.attack_multiple(creatures[1:len(creatures)], lightning)),
+    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 + button_height + padding), 'Lightning', lambda: my_funcs.attack(creatures[1:len(creatures)], lightning)),
     Button(button_width, button_height, 'gray', 'green', (WIDTH // 3, HEIGHT // 2 + button_height * 2 + padding * 2), 'Quit', my_funcs.quit_game)
   ]
 

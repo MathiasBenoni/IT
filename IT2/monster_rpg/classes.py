@@ -25,11 +25,12 @@ class Creature(Entity):
     self.heathbar = HealthBar(self.pos, health)
 
   def __repr__(self):
-    return f"{self.__class__.__name__}({self.health}, {self.hostile}, {self.color}, {self.pos}, '{self.sprite}')"
+    return f"{self.__class__.__name__}({self.health}, {self.pos}, '{self.sprite}'). ID = {self.id}"
 
   def take_damage(self, damage):
     self.health -= damage
     self.heathbar.take_damage(damage)
+
     if self.health <= 0:
       return False
     
@@ -46,7 +47,6 @@ class Foe(Creature):
     super().__init__(health, pos, sprite)
 
     self.image = pygame.transform.flip(self.image, True, False)
-  
     self.attacks = attacks
 
 

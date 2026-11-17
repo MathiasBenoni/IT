@@ -7,9 +7,11 @@ def quit_game():
   print("QUIT")
   pygame.event.post(pygame.event.Event(pygame.QUIT))
 
-def attack(enemy : object, damage : int):
-  enemy.take_damage(damage)
-
-def attack_multiple(enemies : list, damage : int):
-  for enemy in enemies:
-    enemy.take_damage(damage)
+def attack(enemies : object | list, damage : int):
+  
+  if type(enemies) == list:
+     
+    for enemy in enemies:
+        enemy.take_damage(damage)
+  else:
+     enemies.take_damage(damage)

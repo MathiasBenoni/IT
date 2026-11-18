@@ -1,5 +1,6 @@
 import pygame
 import os
+import random
 
 from classes import *
 import functions as my_funcs
@@ -23,13 +24,25 @@ padding = 10
 global_y_pos = HEIGHT - 150
 enemy_x_pos = WIDTH // 2 + 150
 
-creatures = [
-  Player(100, (WIDTH // 6 - button_width // 4, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/turtle.webp"),
-  Foe(200, (enemy_x_pos, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif", lambda: my_funcs.attack(creatures[0], 35)), 
-  Foe(50, (enemy_x_pos + 200 + 50 + padding, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif", lambda: my_funcs.attack(creatures[0], 15))
-]
+moves = Attacks()
 
-player = creatures[0]
+# No () after moves.stab etc. -> we store the method so we can call it later
+player = Player(500, (WIDTH // 6 - button_width // 4, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/turtle.webp", {
+  "Stab": moves.stab,
+  "Tentacles": moves.tentacles,
+  "Lightning": moves.lightning,
+})
+
+big_samurai = Foe(200, (enemy_x_pos, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif", {
+  "Slash": moves.slash,
+  "Fireball": moves.fireball,
+})
+
+small_samurai = Foe(50, (enemy_x_pos + 200 + 50 + padding, global_y_pos), "VG3/IT/IT2/monster_rpg/assets/images/samurai.gif", {
+  "Slash": moves.slash,
+})
+
+creatures = [player, big_samurai, small_samurai]
 
 
 """
@@ -39,22 +52,34 @@ Make pos not be a tuple (classes.py) - 45
 
 """
 
+def player_turn(attack):
+  enemies = []
+  for creature in creatures:
+    if isinstance(creature, Foe):
+      enemies.append(creature)
 
-# print(enteties)
+  attack(enemies)
 
-### DAMAGE VARS
+  # Every living foe hits back with one of its own moves
+  for foe in enemies:
+    if foe.health > 0:
+      foe_moves = list(foe.attacks.values())
+      chosen = random.choice(foe_moves)
+      chosen([player])
 
-stab = 20
-tentacles = 2
-lightning = 4
 
+buttons = []
+y = HEIGHT // 2 - button_height - padding
 
-buttons = [
-    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 - button_height - padding), 'Stab', lambda: player.attack('stab', stab)),
-    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2), 'Tentacles', lambda: player.attack('tentacles', tentacles)),
-    Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, HEIGHT // 2 + button_height + padding), 'Lightning', lambda: player.attack('lightning', lightning)),
-    Button(button_width, button_height, 'gray', 'green', (WIDTH // 3, HEIGHT // 2 + button_height * 2 + padding * 2), 'Quit', my_funcs.quit_game)
-  ]
+for name in player.attacks:
+  attack = player.attacks[name]
+  # attack=attack is needed, otherwise every button would use the last attack
+  button = Button(button_width, button_height, 'gray', 'yellow', (WIDTH // 3, y), name,
+                  lambda attack=attack: player_turn(attack))
+  buttons.append(button)
+  y = y + button_height + padding
+
+buttons.append(Button(button_width, button_height, 'gray', 'green', (WIDTH // 3, y), 'Quit', my_funcs.quit_game))
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -91,9 +116,9 @@ while running:
     if entety.health <= 0:
       creatures.remove(entety)
 
-      if len(creatures) == 1:
-        print("DONE")
-        my_funcs.quit_game()
+  if player.health <= 0:
+    print("GAME OVER")
+    my_funcs.quit_game()
 
   # VISUAL
 

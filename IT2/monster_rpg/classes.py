@@ -7,7 +7,7 @@ class Entity:
 
 class Creature(Entity):
   id = 0
-  def __init__(self, health : int, pos : tuple, sprite : str):
+  def __init__(self, health : int, pos : tuple, sprite : str, attacks : dict):
     super().__init__(pos)
     self.health = health
 
@@ -17,6 +17,9 @@ class Creature(Entity):
 
     self.image = pygame.image.load(self.sprite)
     self.image_rect = self.image.get_rect(center=self.pos)
+
+    # {"Button text": method from Attacks}
+    self.attacks = attacks
 
     self.id = Creature.id
     Creature.id += 1
@@ -41,21 +44,48 @@ class Creature(Entity):
 
     self.heathbar.draw(screen)
 
-  def attack(self, move, damage):
-    self.pos[1] -= 10 # Jump in the air and slowly come down
+class Attacks:
+  def get_alive(self, enemies):
+    alive = []
+    for enemy in enemies:
+      if enemy.health > 0:
+        alive.append(enemy)
+    return alive
+
+  # --- player moves ---
+  def stab(self, enemies):
+    alive = self.get_alive(enemies)
+    if len(alive) > 0:
+      alive[0].take_damage(20)          # first living enemy
+
+  def tentacles(self, enemies):
+    alive = self.get_alive(enemies)
+    if len(alive) > 0:
+      alive[-1].take_damage(10)         # last living enemy
+
+  def lightning(self, enemies):
+    alive = self.get_alive(enemies)
+    for enemy in alive:
+      enemy.take_damage(5)              # everyone
+
+  # --- foe moves ---
+  def slash(self, enemies):
+    enemies[0].take_damage(15)
+
+  def fireball(self, enemies):
+    enemies[0].take_damage(25)
 
 
 class Foe(Creature):
-  def __init__(self, health : int, pos : tuple, sprite : str, attacks : tuple):
-    super().__init__(health, pos, sprite)
+  def __init__(self, health : int, pos : tuple, sprite : str, attacks : dict):
+    super().__init__(health, pos, sprite, attacks)
 
     self.image = pygame.transform.flip(self.image, True, False)
-    self.attacks = attacks
 
 
 class Player(Creature):
-  def __init__(self, health, pos, sprite):
-    super().__init__(health, pos, sprite)
+  def __init__(self, health, pos, sprite, attacks):
+    super().__init__(health, pos, sprite, attacks)
 
 class HealthBar:
   def __init__(self, pos : tuple, value, color="red", border_radius=5):
